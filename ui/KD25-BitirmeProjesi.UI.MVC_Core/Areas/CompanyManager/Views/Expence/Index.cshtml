@@ -1,0 +1,234 @@
+﻿@using KD25_BitirmeProjesi.UI.MVC_Core.Areas.Personel.Models.Enums
+@using KD25_BitirmeProjesi.UI.MVC_Core.Areas.Personel.Models.ViewModels.Expence_VMs
+@using KD25_BitirmeProjesi.UI.MVC_Core.Utilities
+
+
+
+@model IEnumerable<ListExpence_VM>
+
+@{
+    ViewData["Title"] = "Personel Harcama Talebleri";
+}
+
+
+<meta name="api-token" content="@Context.Session.GetString("Token")" />
+
+@if (Model != null && Model.Any())
+{
+    <div class="col-lg-100 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Personel Harcama Talepleri</h4>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Harcama Türü</th>
+                            <th>Para Miktarı.</th>
+                            <th>Talep Eden</th>
+                            <th>Açıklama</th>
+                            <th>Durum</th>
+                            <th>İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr data-id="@item.ID">
+                                <td>@item.ExpenceType</td>
+                                <td>@item.Amount.ToString("N2") @item.Currency</td>
+                                <td>@item.AppUser</td>
+                                <td>@item.Explanation</td>
+                                <td>
+                                    @if (item.ApprovalStatus == ApprovalStatus.Approved)
+                                    {
+                                        <label class="badge badge-success">@item.ApprovalStatus</label>
+                                    }
+                                    else if (item.ApprovalStatus == ApprovalStatus.Cancelled)
+                                    {
+                                        @* Silinmiş olduğu için gelmiyor ve gösterilmeyecek bu kısım *@
+                                        <label class="badge badge-info">@item.ApprovalStatus</label>
+                                    }
+                                    else if (item.ApprovalStatus == ApprovalStatus.Denied)
+                                    {
+                                        <label class="badge badge-danger">@item.ApprovalStatus</label>
+                                    }
+                                    else
+                                    {
+                                        <label class="badge badge-warning">@item.ApprovalStatus</label>
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.ApprovalStatus == ApprovalStatus.Pending)
+                                    {
+                                        <button type="submit" class="btn btn-sm btn-danger deny-btn" data-id="@item.ID">Reddet</button>
+                                        <button type="submit" class="btn btn-sm btn-info" data-id="@item.ID">Onayla</button>
+                                    }
+                                    else if (item.ApprovalStatus == ApprovalStatus.Approved)
+                                    {
+                                        <button type="submit" class="btn btn-sm btn-danger deny-btn" data-id="@item.ID">Reddet</button>
+                                        <button type="submit" class="btn btn-sm btn-info disabled" data-id="@item.ID">Onayla</button>
+                                    }
+                                    
+                                    else
+                                    {
+                                        <button type="submit" class="btn btn-sm btn-danger deny-btn disabled" data-id="@item.ID">Reddet</button>
+                                        <button type="submit" class="btn btn-sm btn-info" data-id="@item.ID">Onayla</button>
+                                    }
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+}
+else
+{
+    <tr>
+        <td colspan="6">Hiç Harcama bulunamadı.</td>
+    </tr>
+}
+
+@* Toast Kutusu *@
+<div id="toast" style="position: fixed; bottom: 20px; right: 20px; display: none; padding: 15px; background: green; color: white; border-radius: 5px; z-index: 9999;"></div>
+
+
+
+<script>
+    
+
+    document.addEventListener("DOMContentLoaded", function () {
+        window.baseUri = '@ViewBag.BaseUri';
+        const token = document.querySelector('meta[name="api-token"]').getAttribute('content');
+
+        // Deny İşlemi
+        document.querySelectorAll(".deny-btn").forEach(button => {
+            button.addEventListener("click", function () {
+                const id = this.getAttribute("data-id");
+                const row = this.closest("tr");
+
+                if (confirm("Talebi reddetmek istediğinize emin misiniz?")) {
+                    fetch(`${baseUri}Expence/Deny/${id}`, {
+                        method: "PUT",
+                        headers:{
+                            "Authorization": `Bearer ${token}`,  // Token'ı Authorization Header'ına ekliyoruz
+                            "Content-Type": "application/json"
+                        }
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                // satırdaki Durum hücresindeki label'ı bul
+                                const statusCell = row.querySelector('td:nth-child(5) label');
+
+                                if (statusCell) {
+                                    statusCell.style.transition = "opacity 0.5s ease";
+                                    statusCell.style.opacity = 0;
+
+                                    setTimeout(() => {
+                                        statusCell.className = "badge badge-danger"; // badge-danger yap
+                                        statusCell.textContent = "Denied"; // Yeni yazı
+                                        statusCell.style.opacity = 1; // Görünürlüğü geri getir
+                                    }, 500);
+                                }
+
+                                // İşlem sütunundaki butonları bul
+                                const denyButton = row.querySelector(".deny-btn");   // Reddet butonu
+                                const approveButton = row.querySelector(".btn-info"); // Onayla butonu
+
+                                if (denyButton) {
+                                    denyButton.disabled = true; // Reddet butonunu pasifleştir
+                                    denyButton.classList.add('disabled');
+                                }
+
+                                if (approveButton) {
+                                    approveButton.disabled = false; // Onayla butonunu aktif hale getir
+                                    approveButton.textContent = "Onayla"; // Metnini de güncelle
+                                    approveButton.classList.remove('disabled');
+                                }
+
+                                // Toast göster
+                                showToast("Harcama talebi başarıyla reddedildi", true);
+                            } else {
+                                response.text().then(msg => showToast(msg, false));
+                            }
+
+                    })
+                    .catch(error => {
+                        showToast("Bir hata oluştu: " + error.message, false);
+                    });
+                }
+            });
+        });
+
+        // Onayla işlemi
+        document.querySelectorAll(".btn-info").forEach(button => {
+            button.addEventListener("click", function () {
+                const id = this.getAttribute("data-id");
+                const row = this.closest("tr");
+                const buttonElement = this;
+
+                if (confirm("Bu harcama talebini onaylamak istiyor musunuz?")) {
+                    fetch(`${baseUri}Expence/Approve/${id}`, {
+                        method: "PUT",
+                        headers:{
+                            "Authorization": `Bearer ${token}`,
+                            "Content-Type": "application/json"
+                        }
+                    })
+                        .then(response => {
+                                if (response.ok) {
+                                    const statusCell = row.querySelector('td:nth-child(5) label');
+
+                                    if (statusCell) {
+                                        statusCell.style.transition = "opacity 0.5s ease";
+                                        statusCell.style.opacity = 0;
+
+                                        setTimeout(() => {
+                                            statusCell.className = "badge badge-success"; // badge-success yap
+                                            statusCell.textContent = "Approved"; // Yeni yazı
+                                            statusCell.style.opacity = 1; // Görünürlüğü geri getir
+                                        }, 500);
+                                    }
+
+                                    const denyButton = row.querySelector(".deny-btn");   // Reddet butonu
+                                    const approveButton = row.querySelector(".btn-info"); // Onayla butonu
+
+                                    if (approveButton) {
+                                        approveButton.disabled = true; // Onayla butonunu pasifleştir
+                                        approveButton.textContent = "Onayla"; // Yazıyı güncelle
+                                        approveButton.classList.add('disabled');
+                                    }
+
+                                    if (denyButton) {
+                                        denyButton.disabled = false; // Reddet butonunu aktif hale getir
+                                        denyButton.classList.remove('disabled');
+                                    }
+
+                                    showToast("Harcama talebi başarıyla onaylandı.", true);
+                                } else {
+                                    response.text().then(msg => showToast(msg, false));
+                                }
+
+                        })
+                        .catch(error => {
+                            showToast("Bir hata oluştu: " + error.message, false);
+                        });
+                }
+            });
+        });
+
+        function showToast(message, isSuccess) {
+            const toast = document.getElementById("toast");
+            toast.textContent = message;
+            toast.style.backgroundColor = isSuccess ? "#28a745" : "#dc3545";
+            toast.style.display = "block";
+            setTimeout(() => { toast.style.display = "none"; }, 3000);
+        }
+    });
+</script>
+
+

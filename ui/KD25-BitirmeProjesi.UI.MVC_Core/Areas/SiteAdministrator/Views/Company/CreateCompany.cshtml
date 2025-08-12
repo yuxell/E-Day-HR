@@ -1,0 +1,102 @@
+﻿@using KD25_BitirmeProjesi.UI.MVC_Core.Areas.SiteAdministrator.Models.ViewModels.Company_VMs
+@model CreateCompany_VM;
+
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <div class="card shadow-lg rounded">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">
+                        <i class="bi bi-person-circle me-2"></i>Profil Bilgileri
+                    </h4>
+                    <a asp-action="Index" class="btn btn-light btn-sm">
+                        <i class="bi bi-arrow-left-circle me-1"></i> Ana Sayfaya Dön
+                    </a>
+                </div>
+                <div class="card-body">
+
+                    <form asp-action="CreateCompany" class="row g-3" method="post" enctype="multipart/form-data">
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="bi bi-person"></i>Şirket Adı</label>
+                            <input asp-for="CompanyName" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="bi bi-person"></i>Title</label>
+                            <input asp-for="Title" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="bi bi-person"></i>Mersis No</label>
+                            <input asp-for="MersisNum" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="bi bi-person"></i>Vergi No</label>
+                            <input asp-for="TaxNum" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="bi bi-person"></i>Vergi Dairesi</label>
+                            <input asp-for="TaxOffice" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="bi bi-person"></i>Logo</label>
+                            <input asp-for="LogoFile" type="file" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="bi bi-person"></i>Telefon</label>
+                            <input asp-for="Phone" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="bi bi-person"></i>Adres</label>
+                            <input asp-for="Address" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="bi bi-person"></i>Email</label>
+                            <input asp-for="Email" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="bi bi-person"></i>Çalışan Sayısı</label>
+                            <input asp-for="NumberOfEmployees" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="bi bi-person"></i>Kuruluş Yılı</label>
+                            <input asp-for="FoundationYear" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="bi bi-person"></i>Sözleşme Başlangıcı</label>
+                            <input asp-for="ContractStartDate" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="bi bi-person"></i>Sözleşme Bitişi</label>
+                            <input asp-for="ContractEndDate" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="bi bi-person"></i>Aktif Mi?</label>
+                            <input asp-for="IsActive" type="checkbox" class="form-control" />
+                        </div>
+                    
+                        
+                        <div class="col-md-6 mt-4">
+                            <button type="submit" class="btn btn-success w-100">
+                                <i class="bi bi-save me-2"></i>Bilgileri Kaydet
+                            </button>
+                        </div>
+                        <div class="col-md-6 mt-4">
+                            <a asp-action="Index" class="btn btn-outline-secondary w-100">
+                                <i class="bi bi-x-circle me-2"></i>İptal
+                            </a>
+                        </div>
+                        
+                        @if (TempData["Success"] != null)
+                        {
+                            <div class="alert alert-success alert-dismissible fade show mt-4" role="alert">
+                                <i class="bi bi-check-circle-fill me-2"></i>@TempData["Success"]
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Kapat"></button>
+                            </div>
+                        }
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,250 @@
+﻿@* @model KD25_BitirmeProjesi.UI.MVC_Core.Areas.CompanyManager.Models.ViewModels.AddPersonelForm_VM
+
+@{
+    ViewData["Title"] = "AddPersonel";
+}
+
+<h1>AddPersonel</h1>
+
+
+
+<form asp-action="Add" enctype="multipart/form-data" method="post">
+    <div class="form-group">
+        <label asp-for="Personel.FirstName"></label>
+        <input asp-for="Personel.FirstName" class="form-control" />
+        <span asp-validation-for="Personel.FirstName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Personel.SecondName"></label>
+        <input asp-for="Personel.SecondName" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Personel.Surname"></label>
+        <input asp-for="Personel.Surname" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Personel.Avatar"></label>
+        <input asp-for="Personel.Avatar" type="file" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Personel.BirthDate"></label>
+        <input asp-for="Personel.BirthDate" class="form-control" type="date" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Personel.CompanyID"></label>
+        <select asp-for="Personel.CompanyID" asp-items="Model.Companies" class="form-control">
+            <option value="">-- Seçiniz --</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Personel.DepartmentID"></label>
+        <select asp-for="Personel.DepartmentID" asp-items="Model.Departments" class="form-control">
+            <option value="">-- Seçiniz --</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Personel.Proficiency"></label>
+        <select asp-for="Personel.Proficiency" asp-items="Model.Proficiencies" class="form-control">
+            <option value="">-- Seçiniz --</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Personel.CurrencyTypeID"></label>
+        <select asp-for="Personel.CurrencyTypeID" asp-items="Model.CurrencyTypes" class="form-control">
+            <option value="">-- Seçiniz --</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Personel.Address"></label>
+        <textarea asp-for="Personel.Address" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Personel.Salary"></label>
+        <input asp-for="Personel.Salary" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Personel.PhoneNumber"></label>
+        <input asp-for="Personel.PhoneNumber" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Personel.Email"></label>
+        <input asp-for="Personel.Email" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Personel.UserName"></label>
+        <input asp-for="Personel.UserName" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Personel.Password"></label>
+        <input asp-for="Personel.Password" type="password" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Personel.PasswordConfirmed"></label>
+        <input asp-for="Personel.PasswordConfirmed" type="password" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Kaydet</button>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+@* @section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} *@
+
+
+
+
+@model KD25_BitirmeProjesi.UI.MVC_Core.Areas.CompanyManager.Models.ViewModels.AddPersonel_VM
+
+@{
+    ViewData["Title"] = "Personel Ekle";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Personel Ekle</h4>
+            <p class="card-description">Yeni personel bilgilerini giriniz</p>
+
+            <form class="forms-sample" asp-action="AddPersonel">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="FirstName"></label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="SecondName"></label>
+                        <input asp-for="SecondName" class="form-control" />
+                        <span asp-validation-for="SecondName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="Surname"></label>
+                        <input asp-for="Surname" class="form-control" />
+                        <span asp-validation-for="Surname" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="SecondSurname"></label>
+                        <input asp-for="SecondSurname" class="form-control" />
+                        <span asp-validation-for="SecondSurname" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="BirthDate"></label>
+                        <input asp-for="BirthDate" class="form-control" type="date" />
+                        <span asp-validation-for="BirthDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="BirthPlace"></label>
+                        <input asp-for="BirthPlace" class="form-control" />
+                        <span asp-validation-for="BirthPlace" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="NationalID"></label>
+                        <input asp-for="NationalID" class="form-control" />
+                        <span asp-validation-for="NationalID" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        @* <label asp-for="RecordStatus"></label> *@
+                        <input asp-for="RecordStatus" type="hidden" class="form-control" />
+                        <span asp-validation-for="RecordStatus" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="Avatar"></label>
+                        <input asp-for="Avatar" type="file" class="form-control" />
+                        <span asp-validation-for="NationalID" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="CompanyID"></label>
+                        <input asp-for="CompanyID" class="form-control" />
+                        <span asp-validation-for="CompanyID" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="DepartmentID"></label>
+                        <input asp-for="DepartmentID" class="form-control" />
+                        <span asp-validation-for="DepartmentID" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="Proficiency"></label>
+                        <input asp-for="Proficiency" class="form-control" />
+                        <span asp-validation-for="Proficiency" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="Address"></label>
+                        <input asp-for="Address" class="form-control" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="Salary"></label>
+                        <input asp-for="Salary" class="form-control" />
+                        <span asp-validation-for="Salary" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="CurrencyTypeID"></label>
+                        <input asp-for="CurrencyTypeID" class="form-control" />
+                        <span asp-validation-for="CurrencyTypeID" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="PhoneNumber"></label>
+                        <input asp-for="PhoneNumber" class="form-control" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="UserName"></label>
+                        <input asp-for="UserName" class="form-control" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="Password"></label>
+                        <input asp-for="Password" type="password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="PasswordConfirmed"></label>
+                        <input asp-for="PasswordConfirmed" type="password" class="form-control" />
+                        <span asp-validation-for="PasswordConfirmed" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-gradient-primary me-2">Kaydet</button>
+                <a asp-action="Index" class="btn btn-light">Listeye Dön</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,149 @@
+﻿@* @model KD25_BitirmeProjesi.UI.MVC_Core.Areas.Personel.Models.ViewModels.LeaveRecord_VMs.UpdateLeaveRecord_VM
+
+@{
+    ViewData["Title"] = "UpdateLeaveRecord";
+}
+
+<h1>UpdateLeaveRecord</h1>
+
+<h4>UpdateLeaveRecord_VM</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="UpdateLeaveRecord">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ID" class="control-label"></label>
+                <input asp-for="ID" class="form-control" />
+                <span asp-validation-for="ID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LeaveRecordType" class="control-label"></label>
+                <input asp-for="LeaveRecordType" class="form-control" />
+                <span asp-validation-for="LeaveRecordType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDate" class="control-label"></label>
+                <input asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDate" class="control-label"></label>
+                <input asp-for="EndDate" class="form-control" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalDays" class="control-label"></label>
+                <input asp-for="TotalDays" class="form-control" />
+                <span asp-validation-for="TotalDays" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AppUser" class="control-label"></label>
+                <input asp-for="AppUser" class="form-control" />
+                <span asp-validation-for="AppUser" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ApprovalStatus" class="control-label"></label>
+                <input asp-for="ApprovalStatus" class="form-control" />
+                <span asp-validation-for="ApprovalStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RecordStatus" class="control-label"></label>
+                <input asp-for="RecordStatus" class="form-control" />
+                <span asp-validation-for="RecordStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} *@
+
+
+@model KD25_BitirmeProjesi.UI.MVC_Core.Areas.Personel.Models.ViewModels.LeaveRecord_VMs.UpdateLeaveRecord_VM
+
+@{
+    ViewData["Title"] = "İzin Talebi Güncelle";
+}
+
+<div class="col-lg-100 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="card-title">İzin Talebi Güncelle</h4>
+                <a asp-action="ListLeaveRecord" class="btn btn-secondary btn-sm">
+                    <i class="mdi mdi-arrow-left"></i> Geri Dön
+                </a>
+            </div>
+
+            <p class="card-description">
+                İzin talebi bilgilerinizi güncelleyebilirsiniz
+            </p>
+
+            <form asp-action="UpdateLeaveRecord">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="LeaveRecordType" class="form-label">İzin Türü</label>
+                        <input asp-for="LeaveRecordType" class="form-control" />
+                        <span asp-validation-for="LeaveRecordType" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="StartDate" class="form-label">Başlangıç Tarihi</label>
+                        <input asp-for="StartDate" type="date" class="form-control" />
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="EndDate" class="form-label">Bitiş Tarihi</label>
+                        <input asp-for="EndDate" type="date" class="form-control" />
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="TotalDays" class="form-label">Toplam Gün</label>
+                        <input asp-for="TotalDays" class="form-control" readonly />
+                        <span asp-validation-for="TotalDays" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="ApprovalStatus" class="form-label">Onay Durumu</label>
+                        <select asp-for="ApprovalStatus" class="form-select">
+                            <option value="0">Beklemede</option>
+                            <option value="1">Onaylandı</option>
+                            <option value="2">Reddedildi</option>
+                            <option value="3">İptal Edildi</option>
+                        </select>
+                        <span asp-validation-for="ApprovalStatus" class="text-danger"></span>
+                    </div>
+
+                    <input asp-for="ID" type="hidden" />
+                    <input asp-for="RecordStatus" type="hidden" />
+                    <input asp-for="AppUser" type="hidden" />
+                </div>
+
+                <div class="d-flex justify-content-end mt-4">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="mdi mdi-content-save"></i> Kaydet
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@* @section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+} *@

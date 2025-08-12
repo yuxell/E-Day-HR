@@ -1,0 +1,153 @@
+﻿@using KD25_BitirmeProjesi.UI.MVC_Core.Areas.Personel.Models.Enums
+@model IEnumerable<KD25_BitirmeProjesi.UI.MVC_Core.Areas.Personel.Models.ViewModels.SalaryAdvance_ViewModel.ListSalaryAdvance_VM>
+
+@{
+    ViewData["Title"] = "Avans Taleplerim";
+}
+
+@if (Model != null && Model.Any())
+
+{
+    <div class="col-lg-100 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="card-title">Avans Talepleri</h4>
+                    <a asp-action="Create" class="btn btn-primary btn-sm">
+                        <i class="mdi mdi-plus-circle"></i> Yeni Avans Talebi
+                    </a>
+                </div>
+                <p class="card-description">
+                    Avans talep işlemleri
+                </p>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Talep Tarihi</th>
+                                <th>Avans Türü</th>
+                                <th>Tutar</th>
+                                <th>Para Birimi</th>
+                                <th>Açıklama</th>
+                                <th>Durum</th>
+                                <th>Cevap Tarihi</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+
+                            {
+                                <tr data-id="@item.ID">
+                                    <td>@item.RequestDate.ToString("dd.MM.yyyy")</td> 
+                                    <td>@item.SalaryAdvanceType</td>
+                                    <td>@item.Amount.ToString("N2")</td>
+                                    <td>@item.CurrencyType</td>
+                                    <td>@(item.Explanation.Length > 20 ? item.Explanation.Substring(0, 20) + "..." : item.Explanation)</td>
+                                    <td>
+                                        @if (item.ApprovalStatus == ApprovalStatus.Approved)
+
+                                        {
+                                            <label class="badge badge-success">@item.ApprovalStatus</label>
+                                        }
+
+                                        else if (item.ApprovalStatus == ApprovalStatus.Cancelled)
+
+                                        {
+                                            <label class="badge badge-info">@item.ApprovalStatus</label>
+                                        }
+
+                                        else if (item.ApprovalStatus == ApprovalStatus.Denied)
+
+                                        {
+                                            <label class="badge badge-danger">@item.ApprovalStatus</label>
+                                        }
+
+                                        else
+
+                                        {
+                                            <label class="badge badge-warning">@item.ApprovalStatus</label>
+                                        }
+                                    </td>
+                                    <td>@(item.ResponseDate.HasValue ? item.ResponseDate.Value.ToString("dd.MM.yyyy") : "-")</td>
+                                    <td>
+                                        <a asp-action="GetSalaryAdvanceDetails" asp-route-id="@item.ID"
+                                           class="btn btn-sm btn-info" title="Detaylar">
+                                            <i class="mdi mdi-eye"></i>
+                                        </a>
+                                        @if (item.ApprovalStatus == ApprovalStatus.Pending)
+
+                                        {
+                                            <a asp-action="UpdateSalaryAdvance" asp-route-id="@item.ID"
+                                               class="btn btn-sm btn-warning" title="Düzenle">
+                                                <i class="mdi mdi-pencil"></i>
+                                            </a>
+                                            <button type="button" class="btn btn-sm btn-danger cancel-btn"
+                                                    data-id="@item.ID" title="İptal Et">
+                                                <i class="mdi mdi-delete"></i>
+                                            </button>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+else
+
+{
+    <div class="alert alert-info">
+        <i class="mdi mdi-information-outline"></i> Henüz avans talebi bulunmamaktadır.
+    </div>
+}
+
+<!-- Toast Mesaj Kutusu -->
+<div id="toast" style="position: fixed; bottom: 20px; right: 20px; display: none; padding: 15px; background: green; color: white; border-radius: 5px; z-index: 9999;"></div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Avans iptal butonları
+        document.querySelectorAll(".cancel-btn").forEach(button => {
+            button.addEventListener("click", function () {
+                const id = this.getAttribute("data-id");
+                const row = this.closest("tr");
+
+                if (confirm("Bu avans talebini iptal etmek istediğinize emin misiniz?")) {
+                    fetch(/api/SalaryAdvance/Cancel/${id}, {
+                        method: "PUT"
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                // Satırı yavaşça kaldır
+                                row.style.transition = "opacity 0.5s ease";
+                                row.style.opacity = 0;
+                                setTimeout(() => row.remove(), 500);
+
+                                // Başarı toast'ını göster
+                                showToast("Avans talebi başarıyla iptal edildi.", true);
+                            } else {
+                                response.text().then(msg => showToast(msg, false));
+                            }
+                        })
+                        .catch(error => {
+                            showToast("Bir hata oluştu: " + error.message, false);
+                        });
+                }
+            });
+        });
+
+        // Toast mesaj fonksiyonu
+        function showToast(message, isSuccess) {
+            const toast = document.getElementById("toast");
+            toast.textContent = message;
+            toast.style.backgroundColor = isSuccess ? "#28a745" : "#dc3545";
+            toast.style.display = "block";
+            setTimeout(() => { toast.style.display = "none"; }, 3000);
+        }
+    });
+</script>

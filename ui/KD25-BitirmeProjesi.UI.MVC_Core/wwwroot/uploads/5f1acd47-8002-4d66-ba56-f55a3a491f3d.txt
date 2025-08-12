@@ -1,0 +1,15 @@
+Cloud database araştırması (Azure portal üzerinden cloud database oluşturulacak)
+DevOps araştırması
+Git komutlarının araştırılması
+Template araştırması (Ücretsiz hazır template bulunarak template giydirme yapılacak)
+Branch araştırması
+WebAPI araştırması
+Identity araştırması (Web apide nugget package ile oluşturulacak)
+Katmanlı mimari araştırması
+Projenin DevOps'a yüklenmesinin araştırılması(Repos)
+Projenin Azur Web Servis'e yayınlanmasının araştırılması(Link'e Publish edilmesi)
+HttpClientFactory
+JWT Token kullanımı
+Authorization ve Authantication işlemleri
+Refit (Zorunlu Değil)
+DataProtection (Zorunlu Değil)

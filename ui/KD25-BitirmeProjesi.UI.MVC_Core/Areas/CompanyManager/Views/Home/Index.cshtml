@@ -1,0 +1,248 @@
+﻿@using KD25_BitirmeProjesi.UI.MVC_Core.Areas.CompanyManager.Models.ViewModels
+@using KD25_BitirmeProjesi.UI.MVC_Core.Areas.Personel.Models.Enums
+@using KD25_BitirmeProjesi.UI.MVC_Core.Areas.Personel.Models.ViewModels.Expence_VMs
+@using KD25_BitirmeProjesi.UI.MVC_Core.Utilities
+
+
+
+@model CompanyManagerDashboard_VM
+
+@{
+    ViewData["Title"] = "Harcama Taleblerim";
+}
+<div class="row">
+@if (Model != null && Model.Expences.Any())
+{
+    <div class="col-lg-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Son Harcama Talepleri</h4>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Talep Eden</th>
+                            <th>Para Miktarı</th>
+                            <th>Durum</th>
+                            <th>İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Expences)
+                        {
+                            <tr data-id="@item.ID">
+                                <td>@item.AppUser</td>
+                                <td>@item.Amount.ToString("N2") @item.Currency</td>
+                                <td>
+                                    @if (item.ApprovalStatus == ApprovalStatus.Approved)
+                                    {
+                                        <label class="badge badge-success">@item.ApprovalStatus</label>
+                                    }
+                                    else if (item.ApprovalStatus == ApprovalStatus.Cancelled)
+                                    {
+                                        @* Silinmiş olduğu için gelmiyor ve gösterilmeyecek bu kısım *@
+                                        <label class="badge badge-info">@item.ApprovalStatus</label>
+                                    }
+                                    else if (item.ApprovalStatus == ApprovalStatus.Denied)
+                                    {
+                                        <label class="badge badge-danger">@item.ApprovalStatus</label>
+                                    }
+                                    else
+                                    {
+                                        <label class="badge badge-warning">@item.ApprovalStatus</label>
+                                    }
+                                </td>
+                                <td>
+                                    <button type="submit" class="btn btn-sm btn-info" onclick="window.location.href='@Url.Content($"~/CompanyManager/Expence/Detail/{item.ID}")'">Detay</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+}
+else
+{
+    <tr>
+        <td colspan="6">Hiç Harcama bulunamadı.</td>
+    </tr>
+}
+
+
+
+                                                                @* İzin Talepleri *@
+@if (Model != null && Model.LeaveRecords.Any())
+{
+    <div class="col-lg-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Son İzin Talepleri</h4>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Talep Eden</th>
+                            <th>Gün</th>
+                            <th>Durum</th>
+                            <th>İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.LeaveRecords)
+                        {
+                            <tr data-id="@item.ID">
+                                <td>@item.AppUser</td>
+                                <td>@item.TotalDays</td>
+                                <td>
+                                    @if (item.ApprovalStatus == ApprovalStatus.Approved)
+                                    {
+                                        <label class="badge badge-success">@item.ApprovalStatus</label>
+                                    }
+                                    else if (item.ApprovalStatus == ApprovalStatus.Cancelled)
+                                    {
+                                        @* Silinmiş olduğu için gelmiyor ve gösterilmeyecek bu kısım *@
+                                        <label class="badge badge-info">@item.ApprovalStatus</label>
+                                    }
+                                    else if (item.ApprovalStatus == ApprovalStatus.Denied)
+                                    {
+                                        <label class="badge badge-danger">@item.ApprovalStatus</label>
+                                    }
+                                    else
+                                    {
+                                        <label class="badge badge-warning">@item.ApprovalStatus</label>
+                                    }
+                                </td>
+                                <td>
+                                    <button type="submit" class="btn btn-sm btn-info" onclick="window.location.href='@Url.Content($"~/CompanyManager/LeaveRecords/Detail/{item.ID}")'">Detay</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+}
+else
+{
+    <tr>
+        <td colspan="6">Hiç İzin talebi bulunamadı.</td>
+    </tr>
+}
+
+
+
+
+
+
+                                                                @* Avans Talepleri *@
+@if (Model != null && Model.SalaryAdvances.Any())
+{
+    <div class="col-lg-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Son Avans Talepleri</h4>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Talep Eden</th>
+                            <th>Avans Miktarı</th>
+                            <th>Durum</th>
+                            <th>İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.SalaryAdvances)
+                        {
+                            <tr data-id="@item.ID">
+                                <td>@item.AppUser</td>
+                                <td>@item.Amount</td>
+                                <td>
+                                    @if (item.ApprovalStatus == ApprovalStatus.Approved)
+                                    {
+                                        <label class="badge badge-success">@item.ApprovalStatus</label>
+                                    }
+                                    else if (item.ApprovalStatus == ApprovalStatus.Cancelled)
+                                    {
+                                        @* Silinmiş olduğu için gelmiyor ve gösterilmeyecek bu kısım *@
+                                        <label class="badge badge-info">@item.ApprovalStatus</label>
+                                    }
+                                    else if (item.ApprovalStatus == ApprovalStatus.Denied)
+                                    {
+                                        <label class="badge badge-danger">@item.ApprovalStatus</label>
+                                    }
+                                    else
+                                    {
+                                        <label class="badge badge-warning">@item.ApprovalStatus</label>
+                                    }
+                                </td>
+                                <td>
+                                    <button type="submit" class="btn btn-sm btn-info" onclick="window.location.href='@Url.Content($"~/CompanyManager/SalaryAdvance/Detail/{item.ID}")'">Detay</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+}
+else
+{
+    <tr>
+        <td colspan="6">Hiç Avans bulunamadı.</td>
+    </tr>
+}
+
+
+
+                                                                @* Son eklenen 4 personel*@
+    @if (Model != null && Model.Personels.Any())
+    {
+        <div class="col-lg-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Son Eklenen Personeller</h4>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Avatar</th>
+                                <th>Personel</th>
+                                <th>Departman</th>
+                                <th>İşlem</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Personels)
+                            {
+                                <tr data-id="@item.UserID">
+                                    <td>@item.Avatar</td>
+                                    <td>@item.FirstName @item.Surname</td>
+                                    <td>@item.Department</td>
+                                    <td>
+                                        <button type="submit" class="btn btn-sm btn-info" onclick="window.location.href='@Url.Content($"~/CompanyManager/PersonelDetail/{item.UserID}")'">Detay</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    }
+    else
+    {
+        <tr>
+            <td colspan="6">Son eklenen personel bulunamadı.</td>
+        </tr>
+    }
+
+
+</div>

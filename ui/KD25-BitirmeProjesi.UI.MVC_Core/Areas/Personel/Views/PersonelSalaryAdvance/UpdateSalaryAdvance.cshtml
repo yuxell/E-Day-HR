@@ -1,0 +1,72 @@
+﻿@model KD25_BitirmeProjesi.PresentationLayer.Models.VMs.AdvanceVMs.UpdateSalaryAdvance_VM
+
+@{
+    ViewData["Title"] = "Avans Talebi Güncelle";
+}
+
+<div class="col-lg-8 mx-auto grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Avans Talebi Güncelle</h4>
+            <p class="card-description">Avans talep bilgilerini düzenleyebilirsiniz</p>
+
+            <form asp-action="UpdateSalaryAdvance">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <input asp-for="Id" type="hidden" />
+
+                <div class="form-group">
+                    <label asp-for="SalaryAdvanceType" class="form-label">Avans Türü</label>
+                    <input asp-for="SalaryAdvanceType" class="form-control" />
+                    <span asp-validation-for="SalaryAdvanceType" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="CurrencyType" class="form-label">Para Birimi</label>
+                    <input asp-for="CurrencyType" class="form-control" />
+                    <span asp-validation-for="CurrencyType" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Amount" class="form-label">Tutar</label>
+                    <input asp-for="Amount" class="form-control" />
+                    <span asp-validation-for="Amount" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Explanation" class="form-label">Açıklama</label>
+                    <textarea asp-for="Explanation" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Explanation" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ApprovalStatus" class="form-label">Onay Durumu</label>
+                    <input asp-for="ApprovalStatus" class="form-control" readonly />
+                    <span asp-validation-for="ApprovalStatus" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ResponseDate" class="form-label">Cevap Tarihi</label>
+                    <input asp-for="ResponseDate" class="form-control" type="date" />
+                    <span asp-validation-for="ResponseDate" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <a asp-action="ListSalaryAdvance" class="btn btn-secondary btn-sm">
+                        <i class="mdi mdi-arrow-left"></i> Listeye Dön
+                    </a>
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <i class="mdi mdi-content-save"></i> Kaydet
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+@* @section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+} *@

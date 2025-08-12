@@ -1,0 +1,6 @@
+@KD25_BitirmeProjesi.WebAPI_HostAddress = http://localhost:5020
+
+GET {{KD25_BitirmeProjesi.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,151 @@
+﻿@* @using KD25_BitirmeProjesi.UI.MVC_Core.Areas.SiteAdministrator.Models.ViewModels
+@model AppUserDetail_VM
+
+@{
+    ViewData["Title"] = "Profil Detayı";
+}
+
+<h2>Profil Bilgileri</h2>
+
+<form asp-action="Detail" method="post">
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label>Adı</label>
+        <input asp-for="FirstName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Soyadı</label>
+        <input asp-for="Surname" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+    <!-- Diğer alanlar aynı şekilde eklenebilir -->
+
+    <button type="submit" class="btn btn-primary">Güncelle</button>
+</form>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+} *@
+
+
+@using KD25_BitirmeProjesi.UI.MVC_Core.Areas.SiteAdministrator.Models.ViewModels
+@model AppUserDetail_VM
+
+@{
+    ViewData["Title"] = "Profil Detayı";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <div class="card shadow-lg rounded">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">
+                        <i class="bi bi-person-circle me-2"></i>Profil Bilgileri
+                    </h4>
+                    <a asp-action="Index" class="btn btn-light btn-sm">
+                        <i class="bi bi-arrow-left-circle me-1"></i> Ana Sayfaya Dön
+                    </a>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Detail" method="post" class="row g-3" onsubmit="return confirm('Güncellemeyi onaylıyor musunuz?');">
+                        @Html.AntiForgeryToken()
+
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="bi bi-person"></i> Adı</label>
+                            <input asp-for="FirstName" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="bi bi-person"></i> İkinci Adı</label>
+                            <input asp-for="SecondName" class="form-control" />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="bi bi-person"></i> Soyadı</label>
+                            <input asp-for="Surname" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="bi bi-person"></i> İkinci Soyadı</label>
+                            <input asp-for="SecondSurname" class="form-control" />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="bi bi-envelope"></i> Email</label>
+                            <input asp-for="Email" class="form-control" type="email" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="bi bi-telephone"></i> Telefon Numarası</label>
+                            <input asp-for="PhoneNumber" class="form-control" />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="bi bi-calendar"></i> Doğum Tarihi</label>
+                            <input asp-for="BirthDate" class="form-control" type="date" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="bi bi-geo-alt"></i> Doğum Yeri</label>
+                            <input asp-for="BirthPlace" class="form-control" />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="bi bi-credit-card-2-front"></i> T.C. Kimlik No</label>
+                            <input asp-for="NationalID" class="form-control" readonly />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="bi bi-star"></i> Uzmanlık</label>
+                            <input asp-for="Proficiency" class="form-control" />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="bi bi-calendar-check"></i> İşe Başlama Tarihi</label>
+                            <input asp-for="StartDate" class="form-control" type="date" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="bi bi-calendar-x"></i> İşten Ayrılma Tarihi</label>
+                            <input asp-for="EndDate" class="form-control" type="date" readonly />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="bi bi-cash-stack"></i> Maaş</label>
+                            <input asp-for="Salary" class="form-control" type="number" step="0.01" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="bi bi-currency-exchange"></i> Para Birimi</label>
+                            <input asp-for="CurrencyType" class="form-control" />
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label"><i class="bi bi-house"></i> Adres</label>
+                            <textarea asp-for="Address" class="form-control" rows="3"></textarea>
+                        </div>
+
+                        <div class="col-md-6 mt-4">
+                            <button type="submit" class="btn btn-success w-100">
+                                <i class="bi bi-save me-2"></i>Bilgileri Güncelle
+                            </button>
+                        </div>
+                        <div class="col-md-6 mt-4">
+                            <a asp-action="Index" class="btn btn-outline-secondary w-100">
+                                <i class="bi bi-x-circle me-2"></i>İptal
+                            </a>
+                        </div>
+                    </form>
+
+                    @if (TempData["Success"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show mt-4" role="alert">
+                            <i class="bi bi-check-circle-fill me-2"></i>@TempData["Success"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Kapat"></button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,2330 @@
+﻿@{
+    ViewData["Title"] = "İK Yönetim Sistemi";
+}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css" rel="stylesheet">
+    <style>
+       :root {
+            --primary-color: #8a2be2; /* Ana lila rengi */
+            --primary-light: #a45deb; /* Daha açık lila */
+            --primary-dark: #6a1b9a; /* Daha koyu lila */
+            --secondary-color: #f8f9fa;
+            --text-color: #2d3748;
+            --light-text: #718096;
+            --danger-color: #ff5252;
+            --border-color: #e0e0e0;
+            
+            --lila-light: #b66dff;
+            --lila-dark: #6a008a;
+            --lila-bg: #f8f2ff;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f2ff;
+            color: var(--text-color);
+        }
+        .container {
+            max-width: 2000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* NAVBAR */
+        .navbar {
+            width: 100%;
+            height: 100px;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(6px);
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.5s ease;
+            display: flex;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            margin-right: 60px;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: nowrap;
+            font-size: 16px;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 10px 0;
+        }
+        .nav-link {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            position: relative;
+            font-size: 16px;
+            padding: 5px 0;
+        }
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+        .nav-link.teklif {
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: 6px 12px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        .nav-link.teklif:hover {
+            background-color: var(--primary-light);
+            color: white;
+            text-decoration: none;
+        }
+        .login-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 20px;
+        }
+        .login-btn:hover {
+            background-color: var(--primary-dark);
+            box-shadow: 0 2px 10px rgba(138, 43, 226, 0.3);
+        }
+        
+        /* Hero Banner */
+        .hero-banner {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e8d6ff 100%);
+            padding: 5rem 0;
+            position: relative;
+        }
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #0f1531;
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+        }
+        .hero-title span {
+            color: #b66dff;
+        }
+        .hero-text {
+            font-size: 1.2rem;
+            color: #3e4b5b;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        .hero-buttons {
+            margin-top: 2rem;
+        }
+        .hero-buttons .btn {
+            padding: 0.75rem 2rem;
+            font-weight: 500;
+            margin-right: 1rem;
+        }
+        .hero-buttons .btn-primary {
+            background-color: #b66dff;
+            border-color: #b66dff;
+            color: white;
+        }
+        .hero-buttons .btn-outline {
+            border: 2px solid #b66dff;
+            color: #b66dff;
+            background: transparent;
+        }
+        
+        /* Features Grid */
+        .features-grid {
+            padding: 5rem 0;
+            background: ghostwhite;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .section-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #0f1531;
+        }
+        .section-header h2 span {
+            color: #b66dff;
+        }
+        .section-header p {
+            color: #aab2bd;
+            font-size: 1.1rem;
+        }
+        .feature-card {
+            margin-bottom: 2rem;
+        }
+        .feature-card .card {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            height: 100%;
+        }
+        .feature-card .card:hover {
+            transform: translateY(-10px);
+        }
+        .card-icon {
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .card-icon img {
+            max-height: 120px;
+        }
+        .card-body {
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .card-body h3 {
+            font-size: 1.25rem;
+            color: #0f1531;
+            margin-bottom: 0.75rem;
+        }
+        .card-body p {
+            color: #aab2bd;
+            margin-bottom: 1.5rem;
+        }
+        .btn-link {
+            color: #b66dff;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+        }
+        .btn-link i {
+            margin-left: 5px;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #b66dff 0%, #6a008a 100%);
+            padding: 4rem 0;
+            color: white;
+            text-align: center;
+        }
+        .cta-box {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .cta-box h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .cta-box p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        .cta-box .btn-light {
+            background: white;
+            color: #b66dff;
+            padding: 0.75rem 2.5rem;
+            font-weight: 500;
+            border-radius: 50px;
+        }
+        
+        /* Responsive Ayarlar */
+        @Model (max-width: 1200px) {
+            .nav-links {
+                gap: 15px;
+            }
+            .login-btn {
+                margin-left: 15px;
+                padding: 8px 15px;
+            }
+        }
+        
+        @Model (max-width: 992px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            .col-md-4 {
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
+        }
+        
+        @Model (max-width: 768px) {
+            .navbar {
+                height: auto;
+                padding: 15px 0;
+            }
+            .nav-links {
+                font-size: 14px;
+                gap: 10px;
+            }
+            .nav-link {
+                font-size: 14px;
+            }
+            .nav-link.teklif {
+                font-size: 14px;
+                padding: 4px 8px;
+            }
+            .login-btn {
+                font-size: 14px;
+                padding: 6px 12px;
+                margin-left: 10px;
+            }
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            .hero-text {
+                font-size: 1rem;
+            }
+            .hero-buttons .btn {
+                padding: 0.6rem 1.5rem;
+                font-size: 0.9rem;
+            }
+            .col-md-4 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+        }
+        
+        @Model (max-width: 576px) {
+            .nav-links {
+                font-size: 12px;
+                gap: 8px;
+            }
+            .nav-link {
+                font-size: 12px;
+            }
+            .nav-link.teklif {
+                font-size: 12px;
+                padding: 3px 6px;
+            }
+            .login-btn {
+                font-size: 12px;
+                padding: 5px 10px;
+            }
+            .hero-title {
+                font-size: 1.5rem;
+            }
+            .hero-text {
+                font-size: 0.9rem;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .hero-buttons .btn {
+                width: 100%;
+                margin-right: 0;
+            }
+        }
+        
+        /* Diğer tüm stiller aynı şekilde kalacak, sadece responsive kısımlarını yukarıda güncelledim */
+        /* Aşağıdaki stiller orijinal dosyanızla aynı */
+        
+        /* Hero Section */
+        .hero {
+            padding: 20px 0;
+        }
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+        .col-md-4 {
+            flex: 0 0 33.333333%;
+            max-width: 33.333333%;
+            padding: 0 15px;
+            margin-bottom: 30px;
+        }
+        .stretch-card {
+            height: 100%;
+        }
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-clip: border-box;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+        }
+        .card-img-holder {
+            position: relative;
+        }
+        .card-img-absolute {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            opacity: 0.6;
+            z-index: 0;
+        }
+        .card-body {
+            flex: 1 1 auto;
+            padding: 25px;
+            position: relative;
+            z-index: 1;
+        }
+        /* Kart İçeriği Stilleri */
+        .card h4 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: #333;
+        }
+        .card h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #222;
+        }
+        .card h6 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #555;
+        }
+        /* Kart Renk Varyasyonları */
+        .bg-gradient-danger {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+        }
+        .bg-gradient-info {
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+        }
+        .bg-gradient-success {
+            background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
+        }
+        /* Personel Kartı Özel Stilleri */
+        .personel-image-container {
+            width: 100%;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-top: 15px;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        .personel-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        /* Özellik Listesi Stilleri */
+        .features-list {
+            margin-top: 15px;
+        }
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+            line-height: 1.4;
+        }
+        .feature-item i {
+            color: black;
+            margin-right: 10px;
+            font-size: 1.3rem;
+            margin-top: 2px;
+        }
+        
+        /* Testimonial Carousel Section */
+        .testimonials {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f2ff 100%);
+        }
+        .testimonial-card {
+            max-width: 500px;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(182, 109, 255, 0.1);
+            background: white;
+            padding: 30px;
+            margin: 0 15px;
+        }
+        .avatar img {
+            border: 3px solid #b66dff;
+        }
+        .stars {
+            font-size: 1.5rem;
+        }
+        .text-purple {
+            color: #b66dff;
+        }
+        .custom-carousel-control {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .carousel-control-prev {
+            left: -25px;
+        }
+        .carousel-control-next {
+            right: -25px;
+        }
+        .carousel-control-prev, 
+        .carousel-control-next {
+            width: auto;
+            opacity: 1;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        /* Hesaplama Araçları Bölümü Stilleri */
+        .calculation-tools-section {
+            padding: 80px 0;
+            background-color: ghostwhite;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: #b66dff;
+            margin-bottom: 15px;
+        }
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            margin-bottom: 50px;
+        }
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .tool-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .calculate-btn {
+            pointer-events: auto;
+        }
+        .tool-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #6a1b9a 0%, #9c27b0 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(106, 27, 154, 0.3);
+            transition: all 0.3s ease;
+        }
+        .tool-icon i {
+            font-size: 28px;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .tool-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        .tool-description {
+            color: #7f8c8d;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        .calculate-btn {
+            display: inline-flex;
+            align-items: center;
+            color: #6a008a;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .calculate-btn:hover {
+            color: #b66dff;
+        }
+        .calculate-btn i {
+            margin-left: 5px;
+            transition: transform 0.3s;
+        }
+        .calculate-btn:hover i {
+            transform: translateX(3px);
+        }
+        
+        /* hesaplama*/
+        .tool-card {
+            position: relative;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .tax-info-box, .tax-calculator-form {
+            background: #f8f9fa;
+            border-left: 4px solid #3f6ad8;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .tax-info-box {
+            background: #f8f9fa;
+            border-left: 4px solid #6a008a;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .tax-info-box h4 {
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        .tax-info-box ul {
+            padding-left: 20px;
+        }
+        .tax-info-box li {
+            margin-bottom: 5px;
+        }
+        .tax-calculator-form {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #3f6ad8;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .result-box {
+            margin-top: 15px;
+        }
+        .result-value {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #3f6ad8;
+        }
+        .btn-calculate {
+            background: #3f6ad8;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+       /* General Styles */
+.section-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 50px;
+    color: #b66dff;
+    font-size: 2.5rem;
+    position: relative;
+    padding-bottom: 15px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: #3498db;
+}
+
+/* Kolay İK Hakkında Section */
+#hakkimizda {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: ghostwhite;
+    padding: 80px 0;
+}
+
+.about-content {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    margin-bottom: 60px;
+    line-height: 1.8;
+}
+
+.about-highlight {
+    color: #b66dff;
+    font-weight: 600;
+}
+
+/* Yönetim Kadrosu Section */
+#yönetim-kadrosu {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: ghostwhite;
+    padding: 0 0 80px;
+}
+
+.management-team {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.team-title {
+    font-size: 2rem;
+    margin-bottom: 40px;
+    color: #b66dff;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.team-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+
+.team-card:hover {
+    transform: translateY(-10px);
+}
+
+.team-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 20px;
+    border: 5px solid #f1f1f1;
+}
+
+.team-card h3 {
+    color: #6a008a;
+    margin-bottom: 5px;
+}
+
+.team-position {
+    color: #7f8c8d;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.team-bio {
+    color: #555;
+    font-size: 0.95rem;
+}
+
+/* CTA Section */
+.cta-section {
+    background-color: #b66dff;
+    color: white;
+    padding: 60px 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.cta-box {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 40px;
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 8px;
+}
+
+.cta-box h2 {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+}
+
+.cta-box p {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-light {
+    background-color: white;
+    color: #b66dff;
+}
+
+.btn-light:hover {
+    background-color: #f0e9ff;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Sözleşmeler Section */
+#sozlesmeler {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: ghostwhite;
+    padding: 80px 0;
+}
+
+/* Accordion Styles */
+.accordion {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.accordion-header {
+    padding: 20px 30px;
+    background-color: #f8f5ff;
+    color: #6a008a;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.accordion-header:hover {
+    background-color: #f0e9ff;
+}
+
+.accordion-header::after {
+    content: '+';
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.accordion-header.active::after {
+    content: '-';
+}
+
+.accordion-content {
+    padding: 0 30px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    line-height: 1.7;
+    color: #555;
+}
+
+.accordion-content.show {
+    padding: 20px 30px;
+    max-height: 1000px;
+}
+
+.contract-text {
+    margin-bottom: 15px;
+}
+
+.contract-subtitle {
+    color: #6a008a;
+    margin: 20px 0 10px;
+    font-weight: 600;
+}
+
+/* KVKK Specific Styles */
+.kvkk-contact {
+    background: #f8f5ff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    border-left: 4px solid #6a008a;
+}
+
+.kvkk-contact a {
+    color: #6a008a;
+    font-weight: 600;
+}
+
+/* Responsive Adjustments */
+@Model (max-width: 768px) {
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .about-content, .team-card {
+        padding: 25px;
+    }
+    
+    .cta-box {
+        padding: 30px 20px;
+    }
+    
+    .cta-box h2 {
+        font-size: 1.8rem;
+    }
+}
+        
+        /*teklif al formu*/
+        .teklif-form-section {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background: linear-gradient(135deg, #b66dff 0%, #6a008a 100%);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .teklif-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .teklif-header h2  {
+            color: white;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        .teklif-header p  {
+            color: white;
+        }
+        .teklif-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group:nth-last-child(2),
+        .form-group:nth-last-child(1) {
+            grid-column: span 2;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        button[type="submit"] {
+            background: #6a008a;
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button[type="submit"]:hover {
+            background: #2980b9;
+        }
+        .form-mesaj {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        .form-mesaj.success {
+            display: block;
+            background: #d4edda;
+            color: #155724;
+        }
+        .form-mesaj.error {
+            display: block;
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        /*footer*/
+        .kolay-footer {
+            background-color: #f8f9fa;
+            padding: 20px 0;
+            text-align: center;
+            border-top: 1px solid #e0e0e0;
+            font-family: 'Arial', sans-serif;
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+        .footer-logo-section {
+            width: 25%;
+            padding-right: 20px;
+        }
+        .footer-logo {
+            max-width: 150px;
+            height: auto;
+            margin-bottom: 15px;
+        }
+        .footer-address {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #666;
+        }
+        .footer-section {
+            width: 20%;
+            margin-bottom: 30px;
+        }
+        .footer-section h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+        .footer-section ul li a {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        .footer-section ul li a:hover {
+            color: #3498db;
+        }
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            color: #666;
+            font-size: 12px;
+        }
+        .policy-link {
+            color: #666;
+            text-decoration: none;
+            margin-bottom: 8px;
+            display: inline-block;
+            transition: color 0.3s;
+        }
+        .policy-link:hover {
+            color: #3498db;
+        }
+        .footer-bottom p {
+            margin: 8px 0 0;
+        }
+        
+        /* Responsive footer */
+        @Model (max-width: 768px) {
+            .footer-logo-section,
+            .footer-section {
+                width: 50%;
+            }
+        }
+        @Model (max-width: 480px) {
+            .footer-logo-section,
+            .footer-section {
+                width: 100%;
+            }
+        }
+        
+        /* Smooth scroll için stil */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+      
+      <nav class="navbar">
+        <div class="container">
+            <a href="#anasayfa" class="logo">
+                <img src="assets/images/E-Day_Logo.png" alt="E-Day Logo" height="50px">
+            </a>
+            <div class="nav-links">
+                <a href="#anasayfa" class="nav-link">Ana Sayfa</a>
+                <a href="#uygulamalar" class="nav-link">Uygulamalar</a>
+                <a href="#kullanicihikayeleri" class="nav-link">Kullanıcı Yorumları</a>
+                <a href="#hesaplama-araclari" class="nav-link">Hesaplama Araçları</a>
+                <a href="#yönetim-kadrosu" class="nav-link">Yönetim Kadrosu</a>
+                <a href="#hakkimizda" class="nav-link">Hakkımızda</a>
+                <a href="#sozlesmeler" class="nav-link">Sözleşmeler</a>
+                <a href="#teklif" class="nav-link teklif">Teklif Al</a>
+                <a href="/Login/Login" class="login-btn">Giriş Yap</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Banner -->
+        <section class="hero-banner" id="anasayfa">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <h1 class="hero-title">Personel Yönetiminde <span>Yeni Nesil Çözüm</span></h1>
+                        <p class="hero-text">Tüm İK süreçlerinizi tek platformda yönetin, verimliliğinizi artırın.</p>
+                        <div class="hero-buttons">
+                            <a href="/Login/Login" class="btn btn-primary mr-3">Hemen Başla</a>
+                            <a href="#teklif" class="btn btn-outline">Teklif Al</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <img src="assets/images/dashboard/personel.jpg" alt="E-Day Dashboard" class="img-fluid hero-image">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Grid -->
+        <section class="features-grid" id="uygulamalar">
+            <div class="container">
+                <div class="section-header">
+                    <h2>E-Day ile <span>Yönetiminizi Kolaylaştırın</span></h2>
+                    <p>Tüm süreçleriniz için özel çözümler</p>
+                </div>
+               
+                <div class="row">
+                    <div class="col-md-4 feature-card">
+                        <div class="card">
+                            <div class="card-icon">
+                                <img src="assets/images/dashboard/personel.jpg" alt="Personel Yönetimi" class="img-fluid">
+                            </div>
+                            <div class="card-body">
+                                <h3>Personel Yönetimi</h3>
+                                <p>Tüm çalışan bilgileriniz tek platformda</p>
+                                <a href="#uygulamalar" class="btn-link">Detaylı Bilgi <i class="mdi mdi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="col-md-4 feature-card">
+                        <div class="card">
+                            <div class="card-icon">
+                                <img src="assets/images/dashboard/izinler.jpg" alt="İzin Yönetimi" class="img-fluid">
+                            </div>
+                            <div class="card-body">
+                                <h3>İzin Yönetimi</h3>
+                                <p>Merkezi izin takip sistemi</p>
+                                <a href="#uygulamalar" class="btn-link">Detaylı Bilgi <i class="mdi mdi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="col-md-4 feature-card">
+                        <div class="card">
+                            <div class="card-icon">
+                                <img src="assets/images/dashboard/ücret.jpg" alt="Ücret Yönetimi" class="img-fluid">
+                            </div>
+                            <div class="card-body">
+                                <h3>Ücret Yönetimi</h3>
+                                <p>Avans ve harcama takibi</p>
+                                <a href="#uygulamalar" class="btn-link">Detaylı Bilgi <i class="mdi mdi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-box">
+                    <h2>E-Day'i Ücretsiz Deneyin</h2>
+                    <p>14 gün boyunca tüm özellikleri keşfetme fırsatı</p>
+                    <a href="#teklif" class="btn btn-light">Ücretsiz Kaydol</a>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Uygulamalar Bölümü -->
+<section class="hero" id="uygulamalar">
+  <div class="row">
+    <!-- Personel Yönetim Kartı -->
+    <div class="col-md-4 stretch-card grid-margin">
+      <div class="card bg-gradient-danger card-img-holder text-dark">
+        <div class="card-body">
+          <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image">
+          <div class="d-flex align-items-center mb-3">
+            <img src="assets/images/dashboard/user.png" alt="user-icon" height="40px" class="mr-2">
+            <h2 class="font-weight-normal mb-0 m-md-2">Personel Yönetimi</h2>
+          </div>
+          <p class="mb-4"> <h4><b>Tüm çalışan bilgilerini tek uygulamadan yönetin.</b></h4> <br /> <h5>E-Day ile özlük dosyalarınızı tek bir platformda güvenli bir şekilde saklayın.</h5></p>
+         
+          <div class="features-list">
+            <div class="feature-item">
+              <i class="mdi mdi-check-circle" ></i>
+              <span>Şirket ihtiyaçlarınıza uygun özelleştirilebilir alanlar</span>
+            </div>
+            <div class="feature-item">
+              <i class="mdi mdi-check-circle"></i>
+              <span>Çalışan evraklarını depolama ve arşivleme</span>
+            </div>
+            <div class="feature-item">
+              <i class="mdi mdi-check-circle"></i>
+              <span>Çalışan geçmişi ve kariyer adımlarını görüntüleme</span>
+            </div>
+            <div class="feature-item">
+              <i class="mdi mdi-check-circle"></i>
+              <span>Kendin oluştur özelliği ile ihtiyaca yönelik rapor çekme</span>
+            </div>
+          </div>
+         
+          <div class="personel-image-container mt-3">
+            <img src="assets/images/dashboard/personel.jpg" alt="personel-tablo" class="img-fluid personel-image">
+          </div>
+        </div>
+      </div>
+    </div>
+   
+    <!-- Ücret Değerlendirmeleri Kartı -->
+    <div class="col-md-4 stretch-card grid-margin">
+      <div class="card bg-gradient-info card-img-holder text-dark">
+        <div class="card-body">
+          <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image">
+          <div class="d-flex align-items-center mb-3">
+            <img src="assets/images/dashboard/wages.png" alt="user-icon" height="45px" class="mr-2">
+            <h2 class="font-weight-normal mb-0 m-md-2">Ücret Değerlendirmeleri</h2>
+          </div>
+          <p class="mb-4"> <h4><b>Tüm onay süreçlerini tek sistemde dijitalleştirin, çalışandan yöneticiye kadar tüm adımları otomatikleştirin.</b></h4> <br /> <h5>Bütçe kontrolleri ve takibi için entegre bir çözüm sunar.</h5></p>
+         
+          <div class="features-list">
+            <div class="feature-item">
+              <i class="mdi mdi-check-circle" ></i>
+              <span>Talep geçmişini döküm halinde görüntüleme</span>
+            </div>
+            <div class="feature-item">
+              <i class="mdi mdi-check-circle"></i>
+              <span>Bütçe analizleri için otomatik raporlama</span>
+            </div>
+            <div class="feature-item">
+              <i class="mdi mdi-check-circle"></i>
+              <span>Onay bekleyen ve tamamlanan işlemlerin anlık durumu</span>
+            </div>
+            <div class="feature-item">
+              <i class="mdi mdi-check-circle"></i>
+              <span>Çalışan bazlı veya departman bazlı harcama istatistikleri</span>
+            </div>
+             <div class="feature-item">
+              <i class="mdi mdi-check-circle"></i>
+              <span>Yöneticiler talepleri her yerden onaylasın, çalışanlar durumu takip etsin</span>
+            </div>
+          </div>
+          <br />
+          <div class="personel-image-container mt-3">
+            <img src="assets/images/dashboard/ücret.jpg" alt="personel-tablo" class="img-fluid personel-image">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Diğer Uygulama Kartları... ---->
+    <div class="col-md-4 stretch-card grid-margin">
+      <div class="card bg-gradient-success card-img-holder text-dark">
+        <div class="card-body">
+          <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image">
+          <div class="d-flex align-items-center mb-3">
+            <img src="assets/images/dashboard/recruitment.png" alt="user-icon" height="45px" class="mr-2">
+            <h2 class="font-weight-normal mb-0 m-md-2">Departman Yönetimi</h2>
+          </div>
+          <p class="mb-4"> <h4><b>Şirketinizin tüm insan kaynakları verilerine tek bir noktadan ulaşın, departman bazlı personel dağılımını ve ihtiyaçlarını takip edin.</b> </h4>  </p>
+          
+          <div class="features-list">
+            <div class="feature-item">
+              <i class="mdi mdi-check-circle" ></i>
+              <span>Tüm birimlerdeki mevcut kadro ve açık pozisyonları görüntüleyin</span>
+            </div>
+            <div class="feature-item">
+              <i class="mdi mdi-check-circle"></i>
+              <span>Çalışanların görev dağılımını ve yetkinliklerini takip edin</span>
+            </div>
+            <div class="feature-item">
+              <i class="mdi mdi-check-circle"></i>
+              <span>Gelecek dönem personel ihtiyaçlarını proaktif olarak planlayın</span>
+            </div>
+          </div>
+          <div class="personel-image-container mt-3">
+            <img src="assets/images/dashboard/personel.jpg" alt="personel-tablo" class="img-fluid personel-image">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 stretch-card grid-margin">
+      <div class="card bg-gradient-success card-img-holder text-dark">
+        <div class="card-body">
+          <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image">
+          <div class="d-flex align-items-center mb-3">
+            <img src="assets/images/dashboard/shift.png" alt="user-icon" height="45px" class="mr-2">
+            <h2 class="font-weight-normal mb-0 m-md-2">İzin Yönetim</h2>
+          </div>
+          <p class="mb-4"> <h4><b>Tüm izin taleplerini merkezi bir sistemde yönetin. İzin sebeplerini inceleyerek onay süreçlerini kolaylaştırın.</b> </h4> <br /> </p>
+          
+          <div class="features-list">
+            <div class="feature-item">
+              <i class="mdi mdi-check-circle" ></i>
+              <span>Çalışanlar ve yöneticiler izin işlemlerini mobil uygulamadan yönetebilsin</span>
+            </div>
+            <div class="feature-item">
+              <i class="mdi mdi-check-circle"></i>
+              <span>İzin taleplerini sebep kategorilerine göre filtreleyin ve raporlayın</span>
+            </div>
+            <div class="feature-item">
+              <i class="mdi mdi-check-circle"></i>
+              <span>Tanımlanan kurallara göre izin taleplerini otomatik onaylatın</span>
+            </div>
+          </div>
+          <div class="personel-image-container mt-3">
+            <img src="assets/images/dashboard/izinler.jpg" alt="personel-tablo" class="img-fluid personel-image">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 stretch-card grid-margin">
+      <div class="card bg-gradient-danger card-img-holder text-dark">
+        <div class="card-body">
+          <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image">
+          <div class="d-flex align-items-center mb-3">
+            <img src="assets/images/dashboard/business-analyst.png" alt="user-icon" height="45px" class="mr-2">
+            <h2 class="font-weight-normal mb-0 m-md-2">İK Analitiği</h2>
+          </div>
+          <p class="mb-4"> <h4><b>Tüm İK süreçlerinizi veriyle yönetin, stratejik kararlar alın.</b></h4> <br /> <h5>Çalışan verilerinizi analiz ederek verimliliği artırın ve maliyetleri optimize edin.</h5><br /></p>
+          <div class="features-list">
+            <div class="feature-item">
+              <i class="mdi mdi-check-circle" ></i>
+              <span>İzin & fazla mesai analizleriyle verimlilik takibi</span>
+            </div>
+            <div class="feature-item">
+              <i class="mdi mdi-check-circle"></i>
+              <span>Departman bazlı ücret & performans karşılaştırmaları</span>
+            </div>
+            <div class="feature-item">
+              <i class="mdi mdi-check-circle"></i>
+              <span>Özet raporlar ve anlık veri görselleştirme</span>
+            </div>
+            <div class="feature-item">
+              <i class="mdi mdi-check-circle"></i>
+              <span>İşe alım-işten çıkış maliyet raporları</span>
+            </div>
+          </div>
+          <br />
+          <div class="personel-image-container mt-3">
+            <img src="assets/images/dashboard/personel.jpg" alt="personel-tablo" class="img-fluid personel-image">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+  </div>
+</section>
+
+        <!-- CTA Section -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-box">
+      <h2>E-Day'i Ücretsiz Deneyin</h2>
+      <p>14 gün boyunca tüm özellikleri keşfetme fırsatı</p>
+      <a href="#teklif" class="btn btn-light">Ücretsiz Kaydol</a>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+        <!-- Testimonial Carousel Section -->
+        <section class="testimonials py-5" id="kullanicihikayeleri" style="background: linear-gradient(135deg, #ffffff 0%, #f8f2ff 100%);">
+            <div class="container">
+                <h2 class="text-center mb-5">Kullanıcı <span style="color: #b66dff;">Yorumları</span></h2>
+               
+                <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <!-- Testimonial 1 -->
+                        <div class="carousel-item active">
+                            <div class="card testimonial-card mx-auto">
+                                <div class="card-body text-center">
+                                    <div class="avatar mb-3">
+                                        <img src="https://randomuser.me/api/portraits/women/43.jpg" class="rounded-circle" width="80" alt="Kullanıcı avatarı">
+                                    </div>
+                                    <h5 class="card-title">Ayşe K.</h5>
+                                    <div class="stars mb-3">
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                    </div>
+                                    <p class="card-text">"E-Day sayesinde personel yönetimi artık çok kolay. Özellikle izin takip sistemi mükemmel çalışıyor."</p>
+                                    <p class="text-muted">- İnsan Kaynakları Müdürü</p>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <!-- Testimonial 2 -->
+                        <div class="carousel-item">
+                            <div class="card testimonial-card mx-auto">
+                                <div class="card-body text-center">
+                                    <div class="avatar mb-3">
+                                        <img src="https://randomuser.me/api/portraits/men/32.jpg" class="rounded-circle" width="80" alt="Kullanıcı avatarı">
+                                    </div>
+                                    <h5 class="card-title">Mehmet T.</h5>
+                                    <div class="stars mb-3">
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star-half-alt text-warning"></i>
+                                    </div>
+                                    <p class="card-text">"Ücret yönetimi modülü tam aradığımız çözüm. Maliyet kontrolü artık çok daha kolay."</p>
+                                    <p class="text-muted">- Finans Müdürü</p>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <!-- Testimonial 3 -->
+                        <div class="carousel-item">
+                            <div class="card testimonial-card mx-auto">
+                                <div class="card-body text-center">
+                                    <div class="avatar mb-3">
+                                        <img src="https://randomuser.me/api/portraits/women/65.jpg" class="rounded-circle" width="80" alt="Kullanıcı avatarı">
+                                    </div>
+                                    <h5 class="card-title">Zeynep A.</h5>
+                                    <div class="stars mb-3">
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="far fa-star text-warning"></i>
+                                    </div>
+                                    <p class="card-text">"Analiz raporları sayesinde verimliliği artırmak için harika veriler elde ediyoruz."</p>
+                                    <p class="text-muted">- Operasyon Müdürü</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Custom Carousel Controls -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                        <span class="custom-carousel-control" aria-hidden="true">
+                            <i class="fas fa-chevron-left text-purple" style="font-size: 2rem;"></i>
+                        </span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                        <span class="custom-carousel-control" aria-hidden="true">
+                            <i class="fas fa-chevron-right text-purple" style="font-size: 2rem;"></i>
+                        </span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-box">
+                    <h2>E-Day'i Ücretsiz Deneyin</h2>
+                    <p>14 gün boyunca tüm özellikleri keşfetme fırsatı</p>
+                    <a href="#teklif" class="btn btn-light">Ücretsiz Kaydol</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hesaplama Araçları Bölümü -->
+        <section class="calculation-tools-section" id="hesaplama-araclari">
+            <div class="container">
+                <h2 class="section-title">Hesaplama Araçları</h2>
+                <p class="section-subtitle">İK süreçleriniz için pratik hesaplama araçları</p>
+               
+                <div class="tools-grid">
+                    <!-- Gelir Vergisi Hesaplama -->
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="mdi mdi-calculator"></i>
+                        </div>
+                        <h3 class="tool-title">Gelir Vergisi Hesaplama</h3>
+                        <p class="tool-description">Kazancınız sonucunda ne kadar gelir vergisi ödemeniz gerektiğini doğru bir şekilde hesaplayın.</p>
+                        <div class="tax-info-box">
+                            <div class="info-section">
+                                <h4><i class="mdi mdi-information"></i> Gelir Vergisi Nedir?</h4>                        
+                                <p>Gelir vergisi, kişilerin bir yıl içinde elde ettiği kazançlar üzerinden ödediği vergi türüdür. 2025 yılı için güncel vergi dilimlerine göre hesaplanır.</p>
+                            </div>
+                            <div class="info-section">
+                                <h4><i class="mdi mdi-scale-balance"></i> 2025 Vergi Dilimleri</h4>
+                                <ul class="tax-brackets">
+                                    <li><span>158.000 TL'ye kadar</span> <strong>%15</strong></li>
+                                    <li><span>158.000 TL - 330.000 TL</span> <strong>%20</strong></li>
+                                    <li><span>330.000 TL - 1.200.000 TL</span> <strong>%27</strong></li>
+                                    <li><span>1.200.000 TL - 4.300.000 TL</span> <strong>%35</strong></li>
+                                    <li><span>4.300.000 TL ve üzeri</span> <strong>%40</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="tax-calculator-form" style="display:none;">
+                            <div class="form-group">
+                                <label class="form-label">Gelir Türü Seçiniz</label>
+                                <div class="radio-group">
+                                    <label class="radio-option">
+                                        <input type="radio" name="incomeType" value="salary" checked>
+                                        <span class="radio-checkmark"></span>
+                                        Ücret Geliri
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="incomeType" value="other">
+                                        <span class="radio-checkmark"></span>
+                                        Ücret Dışı Gelir
+                                    </label>
+                                </div>
+                            </div>
+                           
+                            <div class="form-group">
+                                <label class="form-label">Yıllık Brüt Geliriniz (TL)</label>
+                                <input type="number" id="annualIncome" class="form-control" placeholder="Örn: 250.000">
+                            </div>
+                           
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-option">
+                                    <input type="checkbox" id="asgariUcretIstisna">
+                                    <span class="checkbox-checkmark"></span>
+                                    Asgari ücret istisnası uygula (2025 brüt yıllık: 240.024 TL)
+                                </label>
+                            </div>
+                           
+                            <button id="calculateTaxBtn" class="btn-calculate">
+                                <i class="mdi mdi-calculator"></i> HESAPLA
+                            </button>
+                           
+                            <div class="result-box">
+                                <div class="result-row">
+                                    <span class="result-label">Vergi Matrahı:</span>
+                                    <span class="result-value" id="taxBase">0.00 TL</span>
+                                </div>
+                                <div class="result-row">
+                                    <span class="result-label">Hesaplanan Vergi:</span>
+                                    <span class="result-value" id="taxAmount">0.00 TL</span>
+                                </div>
+                                <div class="result-row highlight">
+                                    <span class="result-label">Ödenecek Vergi:</span>
+                                    <span class="result-value" id="netTax">0.00 TL</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a href="#" class="calculate-btn" id="showTaxCalculator">
+                            <i class="mdi mdi-arrow-right"></i> Hemen Hesapla
+                        </a>
+                    </div>
+
+                    
+                    <!-- Kurumlar Vergisi Hesaplama -->
+      <div class="tool-card">
+        <div class="tool-icon">
+          <i class="mdi mdi-office-building"></i>
+        </div>
+        <h3 class="tool-title">Kurumlar Vergisi Hesaplama</h3>
+        <p class="tool-description">Şirketinizin vergi matrahına göre ödeyeceği kurumlar vergisini hesaplayın.</p>
+
+        <div class="tax-info-box">
+          <div class="info-section">
+            <h4><i class="mdi mdi-information"></i> Kurumlar Vergisi Nedir?</h4>
+            <p>Kurumlar vergisi, şirketlerin bir yıl içinde elde ettiği kazançlar üzerinden ödediği vergi türüdür. 2025 yılı için güncel oran %23'tür.</p>
+          </div>
+          
+          <div class="info-section">
+            <h4><i class="mdi mdi-calendar"></i> Vergi Dönemleri</h4>
+            <ul class="tax-brackets">
+              <li><strong>Ocak-Mart:</strong> 1. Çeyrek</li>
+              <li><strong>Nisan-Haziran:</strong> 2. Çeyrek</li>
+              <li><strong>Temmuz-Eylül:</strong> 3. Çeyrek</li>
+              <li><strong>Ekim-Aralık:</strong> 4. Çeyrek</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tax-calculator-form" style="display:none;">
+          <div class="form-group">
+            <label class="form-label">Vergi Dönemi Seçiniz</label>
+            <select id="taxPeriod" class="form-control">
+              <option value="annual">Yıllık</option>
+              <option value="q1">1. Çeyrek</option>
+              <option value="q2">2. Çeyrek</option>
+              <option value="q3">3. Çeyrek</option>
+              <option value="q4">4. Çeyrek</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Vergi Matrahı (TL)</label>
+            <input type="number" id="corporateTaxBase" class="form-control" placeholder="Örn: 1.000.000">
+          </div>
+          
+          <button id="calculateCorporateTaxBtn" class="btn-calculate">
+            <i class="mdi mdi-calculator"></i> HESAPLA
+          </button>
+          
+          <div class="result-box">
+            <div class="result-row">
+              <span class="result-label">Vergi Oranı:</span>
+              <span class="result-value" id="corporateTaxRate">%23</span>
+            </div>
+            <div class="result-row highlight">
+              <span class="result-label">Ödenecek Vergi:</span>
+              <span class="result-value" id="corporateTaxAmount">0.00 TL</span>
+            </div>
+          </div>
+        </div>
+
+        <a href="#" class="calculate-btn" id="showCorporateTaxCalculator">
+          <i class="mdi mdi-arrow-right"></i> Hemen Hesapla
+        </a>
+      </div>
+
+      <!-- Maaş Zammı Hesaplama -->
+      <div class="tool-card">
+        <div class="tool-icon">
+          <i class="mdi mdi-cash-plus"></i>
+        </div>
+        <h3 class="tool-title">Maaş Zammı Hesaplama</h3>
+        <p class="tool-description">Mevcut maaşınıza uygulanacak zam oranını veya tutarını hesaplayın.</p>
+
+        <div class="tax-info-box">
+          <div class="info-section">
+            <h4><i class="mdi mdi-information"></i> Maaş Zammı Hesaplama</h4>
+            <p>Maaş zammı hesaplama aracı ile mevcut maaşınıza uygulanacak zam oranını veya tutarını hesaplayabilirsiniz.</p>
+          </div>
+          
+          <div class="info-section">
+            <h4><i class="mdi mdi-calculator-variant"></i> Hesaplama Seçenekleri</h4>
+            <ul class="tax-brackets">
+              <li><strong>Zam Oranından Tutar Hesaplama</strong></li>
+              <li><strong>Zam Tutarından Oran Hesaplama</strong></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tax-calculator-form" style="display:none;">
+          <div class="form-group">
+            <label class="form-label">Mevcut Maaş (TL)</label>
+            <input type="number" id="currentSalary" class="form-control" placeholder="Örn: 15.000">
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Hesaplama Türü</label>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="raiseType" value="percentage" checked>
+                <span class="radio-checkmark"></span>
+                Zam Oranından Tutar Hesapla
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="raiseType" value="amount">
+                <span class="radio-checkmark"></span>
+                Zam Tutarından Oran Hesapla
+              </label>
+            </div>
+          </div>
+          
+          <div class="form-group" id="percentageInputGroup">
+            <label class="form-label">Zam Oranı (%)</label>
+            <input type="number" id="raisePercentage" class="form-control" placeholder="Örn: 20">
+          </div>
+          
+          <div class="form-group" id="amountInputGroup" style="display:none;">
+            <label class="form-label">Zam Tutarı (TL)</label>
+            <input type="number" id="raiseAmount" class="form-control" placeholder="Örn: 3.000">
+          </div>
+          
+          <button id="calculateRaiseBtn" class="btn-calculate">
+            <i class="mdi mdi-calculator"></i> HESAPLA
+          </button>
+          
+          <div class="result-box">
+            <div class="result-row">
+              <span class="result-label">Yeni Maaş:</span>
+              <span class="result-value" id="newSalary">0.00 TL</span>
+            </div>
+            <div class="result-row">
+              <span class="result-label" id="resultLabel">Zam Tutarı:</span>
+              <span class="result-value" id="raiseResult">0.00 TL</span>
+            </div>
+          </div>
+        </div>
+
+        <a href="#" class="calculate-btn" id="showRaiseCalculator">
+          <i class="mdi mdi-arrow-right"></i> Hemen Hesapla
+        </a>
+      </div>
+      
+      <!-- Diğer Hesaplama Araçları -->
+      <div class="tool-card">
+        <div class="tool-icon">
+          <i class="mdi mdi-clock-outline"></i>
+        </div>
+        <h3 class="tool-title">Fazla Mesai Ücreti Hesaplama</h3>
+        <p class="tool-description">Fazla mesai saatlerinizi ve maaşınızı girerek ne kadar ek ödeme alacağınızı anında öğrenin.</p>
+        
+        <div class="tax-info-box">
+          <h4>Fazla Mesai Hesaplama</h4>
+          <p>Fazla mesai ücretleri, normal çalışma saatlerinin dışında yapılan çalışmalar için ödenen ek ücrettir. 2025 yılı için:</p>
+          <ul>
+            <li>Haftalık 45 saati aşan çalışmalar fazla mesai sayılır</li>
+            <li>Fazla mesai saat başı ücreti: Normal saat ücretinin %50 fazlası</li>
+            <li>Resmi tatillerde: Normal saat ücretinin %100 fazlası</li>
+          </ul>
+        </div>
+        
+        <div class="tax-calculator-form" style="display: none;">
+          <div class="form-group">
+            <label>Normal Saatlik Ücret (TL):</label>
+            <input type="number" class="form-control" placeholder="Örn: 50">
+          </div>
+          <div class="form-group">
+            <label>Fazla Mesai Saati:</label>
+            <input type="number" class="form-control" placeholder="Örn: 10">
+          </div>
+          <div class="form-group">
+            <label>Tatil Çalışması Saati (Varsa):</label>
+            <input type="number" class="form-control" placeholder="Örn: 5" value="0">
+          </div>
+          <button class="btn-calculate">Hesapla</button>
+          <div class="result-box">
+            <div class="result-label">Fazla Mesai Ücreti:</div>
+            <div class="result-value">0.00 TL</div>
+          </div>
+        </div>
+        <a href="#" class="calculate-btn">Hemen Hesapla <i class="mdi mdi-arrow-right"></i></a>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-icon">
+          <i class="mdi mdi-cash-multiple"></i>
+        </div>
+        <h3 class="tool-title">Kıdem Tazminatı Hesaplama</h3>
+        <p class="tool-description">Çalışma süreniz ve maaş bilgilerinizi girerek hak ettiğiniz tazminatı saniyeler içinde hesaplayın.</p>
+        
+        <div class="tax-info-box">
+          <h4>Kıdem Tazminatı Kuralları</h4>
+          <p>2025 yılı için kıdem tazminatı hesaplama esasları:</p>
+          <ul>
+            <li>1 yıldan fazla çalışanlar hak kazanır</li>
+            <li>Brüt ücret üzerinden hesaplanır</li>
+            <li>Yıllık 30 günlük brüt ücret</li>
+            <li>En yüksek tavan: 8.587,50 TL (2025 için)</li>
+          </ul>
+        </div>
+        
+        <div class="tax-calculator-form" style="display: none;">
+          <div class="form-group">
+            <label>İşe Giriş Tarihi:</label>
+            <input type="date" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>İşten Çıkış Tarihi:</label>
+            <input type="date" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>Son Brüt Maaş (TL):</label>
+            <input type="number" class="form-control" placeholder="Örn: 10000">
+          </div>
+          <button class="btn-calculate">Hesapla</button>
+          <div class="result-box">
+            <div class="result-label">Kıdem Tazminatı Tutarı:</div>
+            <div class="result-value">0.00 TL</div>
+          </div>
+        </div>
+        
+        <a href="#" class="calculate-btn">Hemen Hesapla <i class="mdi mdi-arrow-right"></i></a>
+      </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-box">
+                    <h2>E-Day'i Ücretsiz Deneyin</h2>
+                    <p>14 gün boyunca tüm özellikleri keşfetme fırsatı</p>
+                    <a href="#teklif" class="btn btn-light">Ücretsiz Kaydol</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Kolay İK Özel Bölümü -->
+        <section id="hakkimizda">
+            <div class="section-container">
+                <h2 class="section-title">E-DAY Hakkında</h2>
+               
+                <div class="about-content">
+                    <p>Türkiye'nin ilk ve en büyük <span class="about-highlight">SaaS tabanlı İK ve personel yönetim platformu</span> olan E-Day, 2001 yılında kuruldu. Bugün <span class="about-highlight">2.200'den fazla şirket</span>, <span class="about-highlight">4.500+ İK profesyoneli</span> ve <span class="about-highlight">180.000+ çalışan</span> tarafından kullanılıyor.</p>
+                   
+                    <p>Platform, işe alımdan emekliliğe kadar tüm İK süreçlerini dijitalleştirerek şirketlere kolaylık sağlıyor. Çalışan özlük bilgileri, izin yönetimi, maaş ve prim takibi, performans değerlendirme gibi temel İK fonksiyonlarının yanı sıra, analitik ve danışmanlık hizmetleri sunuyor.</p>
+                   
+                    <p>23 ülkede hizmet veren E-Day, 6 farklı dil seçeneğiyle global bir çözüm sunmaktadır.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Yönetim Kadrosu Bölümü -->
+<section id="yönetim-kadrosu">
+  <div class="management-team">
+    <div class="section-container">
+      <h3 class="team-title">Yönetim Kadrosu</h3>
+     
+      <div class="team-grid">
+        <!-- CEO -->
+        <div class="team-card">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Çağlar Yalı" class="team-photo">
+          <h3>Çağlar Yalı</h3>
+          <p class="team-position">Kolay İK - CEO</p>
+          <p class="team-bio">Kolay İK'da finans ve satış süreçlerinden sorumlu yönetici görevini yürütmektedir. 15 yılı aşkın deneyimiyle şirketin stratejik yönetiminden sorumludur.</p>
+        </div>
+       
+        <!-- COO -->
+        <div class="team-card">
+          <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Tunca Üçer" class="team-photo">
+          <h3>Tunca Üçer</h3>
+          <p class="team-position">Kolay İK - COO</p>
+          <p class="team-bio">Kolay İK'da operasyonel süreçlerden sorumludur. Teknoloji ve iş süreçleri entegrasyonu konusunda uzmandır.</p>
+        </div>
+       
+        <!-- CTO -->
+        <div class="team-card">
+          <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="Hakan Özen" class="team-photo">
+          <h3>Hakan Özen</h3>
+          <p class="team-position">Kolay İK - CTO</p>
+          <p class="team-bio">Yazılım geliştirme ve teknoloji stratejilerinden sorumludur. 20 yıllık teknoloji deneyimine sahiptir.</p>
+        </div>
+       
+        <!-- CMO -->
+        <div class="team-card">
+          <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Ayşe Kaya" class="team-photo">
+          <h3>Ayşe Kaya</h3>
+          <p class="team-position">Kolay İK - CMO</p>
+          <p class="team-bio">Marka yönetimi ve pazarlama stratejilerinden sorumludur. Dijital dönüşüm konusunda uzmandır.</p>
+        </div>
+       
+        <!-- CFO -->
+        <div class="team-card">
+          <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Mehmet Demir" class="team-photo">
+          <h3>Mehmet Demir</h3>
+          <p class="team-position">Kolay İK - CFO</p>
+          <p class="team-bio">Finansal strateji ve yatırım ilişkilerinden sorumludur. 18 yıllık finans deneyimine sahiptir.</p>
+        </div>
+       
+        <!-- CHRO -->
+        <div class="team-card">
+          <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Zeynep Arslan" class="team-photo">
+          <h3>Zeynep Arslan</h3>
+          <p class="team-position">Kolay İK - CHRO</p>
+          <p class="team-bio">İnsan kaynakları stratejisi ve yetenek yönetiminden sorumludur. Kurumsal kültürün geliştirilmesinde öncü rol oynamaktadır.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-box">
+                    <h2>E-Day'i Ücretsiz Deneyin</h2>
+                    <p>14 gün boyunca tüm özellikleri keşfetme fırsatı</p>
+                    <a href="#teklif" class="btn btn-light">Ücretsiz Kaydol</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sözleşmeler Bölümü -->
+<section id="sozlesmeler">
+  <div class="section-container">
+    <h2 class="section-title">Sözleşmeler ve Politikalar</h2>
+   
+    <!-- Kullanıcı Sözleşmesi -->
+    <div class="accordion">
+      <div class="accordion-header">Kullanıcı Sözleşmesi</div>
+      <div class="accordion-content">
+        <p class="contract-text">E-Day platformunu kullanmadan önce lütfen bu kullanıcı sözleşmesini dikkatlice okuyunuz.</p>
+       
+        <h4 class="contract-subtitle">1. Taraflar</h4>
+        <p class="contract-text">Bu sözleşme, E-Day yazılımını sağlayan şirket ile platformu kullanan şirket arasında akdedilmiştir.</p>
+       
+        <h4 class="contract-subtitle">2. Sözleşmenin Konusu</h4>
+        <p class="contract-text">Sözleşme, E-Day platformunun kullanım şartlarını ve tarafların hak/yükümlülüklerini düzenler.</p>
+       
+        <h4 class="contract-subtitle">3. Kullanıcı Yükümlülükleri</h4>
+        <ul>
+          <li>Bilgilerin doğru ve güncel olmasından kullanıcı sorumludur</li>
+          <li>Şifre güvenliği ve yetkisiz erişimden kullanıcı sorumludur</li>
+          <li>Platforma yüklenen içeriklerin hukuka uygunluğundan kullanıcı sorumludur</li>
+          <li>Kişisel verilerin korunması yükümlülüklerini kullanıcı üstlenir</li>
+        </ul>
+      </div>
+    </div>
+   
+    <!-- Gizlilik Politikası -->
+    <div class="accordion">
+      <div class="accordion-header">Gizlilik Politikası</div>
+      <div class="accordion-content">
+        <p class="contract-text">E-Day olarak kişisel verilerin korunmasına büyük önem vermekteyiz.</p>
+       
+        <h4 class="contract-subtitle">1. Toplanan Veriler</h4>
+        <ul>
+          <li>Kullanıcı adı ve iletişim bilgileri</li>
+          <li>Kullanım istatistikleri ve davranış verileri</li>
+          <li>Ödeme bilgileri (şifrelenmiş olarak)</li>
+        </ul>
+       
+        <h4 class="contract-subtitle">2. Veri Kullanım Amaçları</h4>
+        <ul>
+          <li>Hizmetlerin iyileştirilmesi</li>
+          <li>Kullanıcı deneyiminin geliştirilmesi</li>
+          <li>Yasal yükümlülüklerin yerine getirilmesi</li>
+        </ul>
+      </div>
+    </div>
+   
+    <!-- Çerez Politikası -->
+    <div class="accordion">
+      <div class="accordion-header">Çerez Politikası</div>
+      <div class="accordion-content">
+        <p class="contract-text">Web sitemizde çerezler kullanılmaktadır.</p>
+       
+        <h4 class="contract-subtitle">1. Çerez Türleri</h4>
+        <ul>
+          <li><strong>Zorunlu Çerezler:</strong> Temel işlevler için gereklidir</li>
+          <li><strong>Performans Çerezleri:</strong> Kullanıcı deneyimini analiz etmek için kullanılır</li>
+          <li><strong>Fonksiyonel Çerezler:</strong> Tercihlerinizi hatırlamamızı sağlar</li>
+        </ul>
+       
+        <h4 class="contract-subtitle">2. Çerez Yönetimi</h4>
+        <p class="contract-text">Tarayıcı ayarlarınızdan çerezleri kontrol edebilir veya silebilirsiniz.</p>
+      </div>
+    </div>
+   
+    <!-- KVKK Aydınlatma Metni -->
+    <div class="accordion">
+      <div class="accordion-header">KVKK Aydınlatma Metni</div>
+      <div class="accordion-content">
+        <p class="contract-text">6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında aydınlatma metnimiz:</p>
+       
+        <h4 class="contract-subtitle">Veri Sorumlusu</h4>
+        <p class="contract-text">E-Day Yazılım A.Ş.</p>
+       
+        <h4 class="contract-subtitle">Veri İşleme Amaçları</h4>
+        <ul>
+          <li>Hizmet sunumu</li>
+          <li>Yasal yükümlülüklerin yerine getirilmesi</li>
+          <li>Kullanıcı deneyiminin iyileştirilmesi</li>
+        </ul>
+       
+        <div class="kvkk-contact">
+          <h4 class="contract-subtitle">İletişim</h4>
+          <p>KVKK ile ilgili talepleriniz için: <a href="mailto:kvkk@e-day.com">kvkk@e-day.com</a></p>
+          <p>KEP adresi: eday@hs01.kep.tr</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+        <!-- Teklif Formu -->
+        <section class="teklif-form-section" id="teklif">
+            <div class="teklif-header">
+                <h2>Tüm İK süreçlerinizi tek uygulamadan yönetin</h2>
+                <p>Kullandığınız kadar ödeyin, çalışan başına ücretlendirme ile sürpriz faturalarla karşılaşmayın.</p>
+            </div>
+
+            <form id="teklifForm" class="teklif-form">
+                <div class="form-group">
+                    <input type="text" name="name" placeholder="Ad Soyad" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="E-posta Adresiniz" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" name="phone" placeholder="Telefon Numaranız" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="company" placeholder="Şirket Adı" required>
+                </div>
+                <div class="form-group">
+                    <select name="employee_count" required>
+                        <option value="" disabled selected>Çalışan Sayısı</option>
+                        <option value="1-10">1-10</option>
+                        <option value="11-50">11-50</option>
+                        <option value="51-100">51-100</option>
+                        <option value="100+">100+</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <textarea name="message" placeholder="İhtiyaçlarınızı belirtin. Unutmayın ne kadar açıklayıcı olursanız, size o kadar tutarlı ve net şekilde yardımcı olabiliriz."></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit">TEKLİF AL</button>
+                </div>
+            </form>
+           
+            <div id="formMesaj" class="form-mesaj"></div>
+        </section>
+    </main>
+
+    <footer class="kolay-footer">
+        <div class="footer-container">
+            <div class="footer-logo-section">
+                <img src="assets/images/E-Day_Logo.png" alt="E-Day Logo" class="footer-logo">
+                <p class="footer-address">Mesa Kaz Sahayıcılık Mah. Atatürk Cad. N:69<br>
+                K:5 D:81 Kadıköy / İstanbul / Turkey<br>
+                +90 212 951 06 6</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Ürün</h3>
+                <ul>
+                    <li><a href="#anasayfa">Anasayfa</a></li>
+                    <li><a href="#uygulamalar">Uygulamalar</a></li>
+                    <li><a href="#teklif">Teklif Al</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Kaynaklar</h3>
+                <ul>
+                    <li><a href="#kullanicihikayeleri">Kullanıcı Yorumları</a></li>
+                    <li><a href="#hesaplama-araclari">Hesaplama Araçları</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>E-Day</h3>
+                <ul>
+                    <li><a href="#hakkimizda">Hakkımızda</a></li>
+                    <li><a href="#yönetim-kadrosu">Yönetim Kadrosu</a></li>
+                    <li><a href="/Login/Login">Giriş Yap</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <a href="#sozlesmeler" class="policy-link">SÖZLEŞMELER VE POLİTİKALAR</a>
+            <p>© 2025 Kolay Yazılım A.Ş.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for all links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // URL'yi güncelle (sayfa yenilenmez)
+                    if(history.pushState) {
+                        history.pushState(null, null, targetId);
+                    } else {
+                        location.hash = targetId;
+                    }
+                }
+            });
+        });
+
+
+        // Accordion Fonksiyonu
+        document.addEventListener('DOMContentLoaded', function() {
+            const accordionHeaders = document.querySelectorAll('#contracts-section .accordion-header');
+            
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    const content = this.nextElementSibling;
+                    content.classList.toggle('show');
+                    
+                    // Diğer açık accordionları kapat
+                    accordionHeaders.forEach(otherHeader => {
+                        if (otherHeader !== header) {
+                            otherHeader.classList.remove('active');
+                            otherHeader.nextElementSibling.classList.remove('show');
+                        }
+                    });
+                });
+            });
+        });
+
+
+        // FormSubmit.io kullanarak (Ücretsiz)
+        document.getElementById('teklifForm').addEventListener('submit', function(e) {e.preventDefault();
+             const formMesaj = document.getElementById('formMesaj');
+             formMesaj.style.display = 'none';
+  
+       // FormSubmit.io'ya gönder
+       fetch('https://formsubmit.co/ajax/kolay.ik.group1@gmail.com', {
+               method: 'POST',
+               headers: { 
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+                        },
+              body: JSON.stringify({
+              name: this.name.value,
+              email: this.email.value,
+              phone: this.phone.value,
+              company: this.company.value,
+              employee_count: this.employee_count.value,
+              message: this.message.value,
+              _subject: 'Yeni Teklif Talebi - ' + this.company.value,
+              _template: 'table' // Daha düzenli e-posta görünümü
+                                   })
+              })
+  .then(response => response.json())
+  .then(data => {
+    formMesaj.textContent = 'Teşekkürler! Teklif talebiniz alındı. En kısa sürede sizinle iletişime geçeceğiz.';
+    formMesaj.className = 'form-mesaj success';
+    formMesaj.style.display = 'block';
+    this.reset();
+  })
+  .catch(error => {
+    formMesaj.textContent = 'Bir hata oluştu, lütfen daha sonra tekrar deneyiniz.';
+    formMesaj.className = 'form-mesaj error';
+    formMesaj.style.display = 'block';
+  });
+});
+document.addEventListener('DOMContentLoaded', function() {
+  // Gelir Vergisi Hesaplama
+  const showTaxBtn = document.getElementById('showTaxCalculator');
+  const taxForm = document.querySelector('#showTaxCalculator').closest('.tool-card').querySelector('.tax-calculator-form');
+  const taxInfoBox = document.querySelector('#showTaxCalculator').closest('.tool-card').querySelector('.tax-info-box');
+  
+  showTaxBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    toggleCalculator(this, taxForm, taxInfoBox);
+  });
+
+  // Kurumlar Vergisi Hesaplama
+  const showCorporateTaxBtn = document.getElementById('showCorporateTaxCalculator');
+  const corporateTaxForm = document.querySelector('#showCorporateTaxCalculator').closest('.tool-card').querySelector('.tax-calculator-form');
+  const corporateTaxInfoBox = document.querySelector('#showCorporateTaxCalculator').closest('.tool-card').querySelector('.tax-info-box');
+  
+  showCorporateTaxBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    toggleCalculator(this, corporateTaxForm, corporateTaxInfoBox);
+  });
+
+  // Maaş Zammı Hesaplama
+  const showRaiseBtn = document.getElementById('showRaiseCalculator');
+  const raiseForm = document.querySelector('#showRaiseCalculator').closest('.tool-card').querySelector('.tax-calculator-form');
+  const raiseInfoBox = document.querySelector('#showRaiseCalculator').closest('.tool-card').querySelector('.tax-info-box');
+  
+  showRaiseBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    toggleCalculator(this, raiseForm, raiseInfoBox);
+  });
+
+  // Diğer hesaplama araçları için toggle
+  document.querySelectorAll('.calculate-btn:not(#showTaxCalculator):not(#showCorporateTaxCalculator):not(#showRaiseCalculator)').forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
+      const card = this.closest('.tool-card');
+      const form = card.querySelector('.tax-calculator-form');
+      const infoBox = card.querySelector('.tax-info-box');
+      toggleCalculator(this, form, infoBox);
+    });
+  });
+
+  // Maaş zammı hesaplama türü değiştiğinde
+  document.querySelectorAll('input[name="raiseType"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+      const percentageGroup = document.getElementById('percentageInputGroup');
+      const amountGroup = document.getElementById('amountInputGroup');
+      const resultLabel = document.getElementById('resultLabel');
+      
+      if (this.value === 'percentage') {
+        percentageGroup.style.display = 'block';
+        amountGroup.style.display = 'none';
+        resultLabel.textContent = 'Zam Tutarı:';
+      } else {
+        percentageGroup.style.display = 'none';
+        amountGroup.style.display = 'block';
+        resultLabel.textContent = 'Zam Oranı:';
+      }
+    });
+  });
+
+  // Hesaplama fonksiyonları
+  function toggleCalculator(button, form, infoBox) {
+    if (form.style.display === 'none') {
+      form.style.display = 'block';
+      infoBox.style.display = 'none';
+      button.innerHTML = '<i class="mdi mdi-chevron-up"></i> Bilgileri Göster';
+    } else {
+      form.style.display = 'none';
+      infoBox.style.display = 'block';
+      button.innerHTML = '<i class="mdi mdi-arrow-right"></i> Hemen Hesapla';
+    }
+  }
+
+  // Gelir vergisi hesaplama
+  document.getElementById('calculateTaxBtn').addEventListener('click', function() {
+    const income = parseFloat(document.getElementById('annualIncome').value) || 0;
+    const isSalary = document.querySelector('input[name="incomeType"]:checked').value === 'salary';
+    const applyExemption = document.getElementById('asgariUcretIstisna').checked;
+    
+    const brackets = [
+      { limit: 158000, rate: 0.15 },
+      { limit: 330000, rate: 0.20 },
+      { limit: 1200000, rate: 0.27 },
+      { limit: 4300000, rate: 0.35 },
+      { limit: Infinity, rate: 0.40 }
+    ];
+    
+    const exemptionAmount = applyExemption && isSalary ? 240024 : 0;
+    const taxableIncome = Math.max(income - exemptionAmount, 0);
+    
+    let tax = 0;
+    let remainingIncome = taxableIncome;
+    let prevLimit = 0;
+    
+    for (const bracket of brackets) {
+      if (remainingIncome <= 0) break;
+      
+      const bracketAmount = Math.min(remainingIncome, bracket.limit - prevLimit);
+      tax += bracketAmount * bracket.rate;
+      remainingIncome -= bracketAmount;
+      prevLimit = bracket.limit;
+    }
+    
+    document.getElementById('taxBase').textContent = taxableIncome.toLocaleString('tr-TR', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }) + ' TL';
+    
+    document.getElementById('taxAmount').textContent = tax.toLocaleString('tr-TR', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }) + ' TL';
+    
+    document.getElementById('netTax').textContent = tax.toLocaleString('tr-TR', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }) + ' TL';
+  });
+
+  // Kurumlar vergisi hesaplama
+  document.getElementById('calculateCorporateTaxBtn').addEventListener('click', function() {
+    const taxBase = parseFloat(document.getElementById('corporateTaxBase').value) || 0;
+    const taxRate = 0.23; // 2025 kurumlar vergisi oranı
+    const taxAmount = taxBase * taxRate;
+    
+    document.getElementById('corporateTaxAmount').textContent = taxAmount.toLocaleString('tr-TR', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }) + ' TL';
+  });
+
+  
+  // Maaş zammı hesaplama
+  document.getElementById('calculateRaiseBtn').addEventListener('click', function() {
+    const currentSalary = parseFloat(document.getElementById('currentSalary').value) || 0;
+    const raiseType = document.querySelector('input[name="raiseType"]:checked').value;
+    
+    let newSalary, raiseResult;
+    
+    if (raiseType === 'percentage') {
+      const percentage = parseFloat(document.getElementById('raisePercentage').value) || 0;
+      raiseResult = currentSalary * (percentage / 100);
+      newSalary = currentSalary + raiseResult;
+    } else {
+      raiseResult = parseFloat(document.getElementById('raiseAmount').value) || 0;
+      newSalary = currentSalary + raiseResult;
+    }
+    
+    document.getElementById('newSalary').textContent = newSalary.toLocaleString('tr-TR', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }) + ' TL';
+    
+    if (raiseType === 'percentage') {
+      document.getElementById('raiseResult').textContent = raiseResult.toLocaleString('tr-TR', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }) + ' TL';
+    } else {
+      const raisePercentage = (raiseResult / currentSalary) * 100;
+      document.getElementById('raiseResult').textContent = raisePercentage.toFixed(2) + '%';
+    }
+  });
+});
+</script>
+
+
+
+
+
+</body>
+</html>

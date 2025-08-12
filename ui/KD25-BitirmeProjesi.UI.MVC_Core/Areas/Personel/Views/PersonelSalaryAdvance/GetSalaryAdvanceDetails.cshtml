@@ -1,0 +1,60 @@
+﻿@model KD25_BitirmeProjesi.UI.MVC_Core.Areas.Personel.Models.ViewModels.SalaryAdvance_ViewModel.SalaryAdvance_VM
+
+@{
+    ViewData["Title"] = "Avans Talebi Detayı";
+}
+
+<div class="col-lg-8 mx-auto grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Avans Talebi Detayı</h4>
+            <p class="card-description">Avans talebinize ait bilgiler aşağıda listelenmiştir</p>
+
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <strong>Talep Tarihi:</strong> @(Model.RequestDate.HasValue ? Model.RequestDate.Value.ToString("dd.MM.yyyy") : "-")
+                </li>
+                <li class="list-group-item">
+                    <strong>Avans Türü:</strong> @Model.SalaryAdvanceType
+                </li>
+                <li class="list-group-item">
+                    <strong>Para Birimi:</strong> @Model.CurrencyType
+                </li>
+                <li class="list-group-item">
+                    <strong>Tutar:</strong> @Model.Amount.ToString("N2")
+                </li>
+                <li class="list-group-item">
+                    <strong>Açıklama:</strong> @Model.Explanation
+                </li>
+                <li class="list-group-item">
+                    <strong>Durum:</strong> 
+                    @if (Model.ApprovalStatus.ToString() == "Approved")
+                    {
+                        <span class="badge badge-success">@Model.ApprovalStatus</span>
+                    }
+                    else if (Model.ApprovalStatus.ToString() == "Denied")
+                    {
+                        <span class="badge badge-danger">@Model.ApprovalStatus</span>
+                    }
+                    else if (Model.ApprovalStatus.ToString() == "Cancelled")
+                    {
+                        <span class="badge badge-info">@Model.ApprovalStatus</span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-warning">@Model.ApprovalStatus</span>
+                    }
+                </li>
+                <li class="list-group-item">
+                    <strong>Cevap Tarihi:</strong> @(Model.ResponseDate.HasValue ? Model.ResponseDate.Value.ToString("dd.MM.yyyy") : "-")
+                </li>
+            </ul>
+
+            <div class="d-flex justify-content-between mt-4">
+                <a asp-action="ListSalaryAdvance" class="btn btn-secondary btn-sm">
+                    <i class="mdi mdi-arrow-left"></i> Listeye Dön
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

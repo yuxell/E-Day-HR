@@ -1,0 +1,52 @@
+﻿@using KD25_BitirmeProjesi.UI.MVC_Core.Areas.Personel.Models.ViewModels.Expence_VMs
+@model AddExpenceForm_VM;
+
+
+<div class="col-6 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Harcama Talep Et</h4>
+            <p class="card-description"> Talep edilecek harcama bilgilerini giriniz </p>
+            <form class="forms-sample" asp-action="AddExpence" enctype="multipart/form-data">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group"> @* Expence Type List *@
+                    <label asp-for="Expence.ExpenceTypeID">Harcama Türü Seç</label>
+                    <select asp-for="Expence.ExpenceTypeID" asp-items="Model.ExpenceTypes" class="form-control"></select>
+                    <span asp-validation-for="Expence.ExpenceTypeID" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group"> @* Expence Amount *@
+                    <label asp-for="Expence.Amount">Harcama Miktarı</label>
+                    <input type="text" asp-for="Expence.Amount" class="form-control" placeholder="Harcama Miktarı">
+                    <span asp-validation-for="Expence.Amount" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">@* Currency Type *@
+                    <label asp-for="Expence.Currency">Para Birimi</label>
+                    <select asp-for="Expence.Currency" asp-items="Model.CurrencyTypes" class="form-control"></select>
+                    <span asp-validation-for="Expence.Currency" class="text-danger"></span>
+                </div>
+
+                <div class="form-group"> @* Expence File *@
+                    <label asp-for="Expence.FilePath" class="control-label"></label>
+                    <input asp-for="Expence.FilePath" class="form-control" />
+                    <span asp-validation-for="Expence.FilePath" class="text-danger"></span>
+                </div>
+
+                <div class="form-group"> @* Explanation *@
+                    <label asp-for="Expence.Explanation">Açıklama</label>
+                    <textarea asp-for="Expence.Explanation" class="form-control" rows="4">Açıklama</textarea>
+                </div>
+
+                <div class="form-group" style="display:none"> @* AppUserID için, kalkacak sonra *@
+                    <label asp-for="Expence.AppUserID">UserID</label>
+                    <text asp-for="Expence.AppUserID" class="form-control" >1</text>
+                </div>
+
+                <button type="submit" class="btn btn-gradient-primary me-2">Talep Et</button>
+            </form>
+        </div>
+    </div>
+</div>

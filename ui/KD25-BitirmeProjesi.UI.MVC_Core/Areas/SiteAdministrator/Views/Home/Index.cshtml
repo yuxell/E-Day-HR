@@ -1,0 +1,2730 @@
+﻿@using KD25_BitirmeProjesi.UI.MVC_Core.Areas.SiteAdministrator.Models.ViewModels
+
+@model AppUser_VM
+
+@* 
+
+
+<div class="profile-container">
+    <div class="profile-header text-center mb-4">
+        <h2 class="welcome-text">Hoş Geldiniz, @Model.FirstName!</h2>
+        <p class="text-muted">Profil bilgilerinizi buradan görüntüleyebilir ve güncelleyebilirsiniz</p>
+    </div>
+
+    <div class="card profile-card shadow-lg">
+        <div class="card-body">
+            <div class="row align-items-center">
+                <div class="col-md-4 text-center">
+                    <div class="avatar-container mb-3">
+                        <img src="@Model.Avatar" class="profile-avatar img-thumbnail" alt="Profil Fotoğrafı" />
+                        <div class="avatar-overlay">
+                            <a href="#" class="btn btn-sm btn-light avatar-edit-btn" title="Fotoğrafı Değiştir">
+                                <i class="fas fa-camera"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <a href="/profil-duzenle" class="btn btn-primary btn-block mt-2">
+                        <i class="fas fa-user-edit mr-2"></i>Profili Düzenle
+                    </a>
+                </div>
+                <div class="col-md-8">
+                    <div class="profile-info">
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="info-content">
+                                <h6 class="info-label">Ad Soyad</h6>
+                                <p class="info-value">@Model.FirstName @Model.Surname</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="info-content">
+                                <h6 class="info-label">Email</h6>
+                                <p class="info-value">@Model.Email</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="info-content">
+                                <h6 class="info-label">Telefon</h6>
+                                <p class="info-value">@Model.PhoneNumber</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="info-content">
+                                <h6 class="info-label">Adres</h6>
+                                <p class="info-value">@Model.Address</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <div class="info-content">
+                                <h6 class="info-label">Meslek</h6>
+                                <p class="info-value">@Model.Proficiency</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div class="info-content">
+                                <h6 class="info-label">Departman</h6>
+                                <p class="info-value">@Model.Department</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .profile-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    .welcome-text {
+        font-size: 2rem;
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+    }
+    
+    .profile-card {
+        border-radius: 15px;
+        border: none;
+        overflow: hidden;
+    }
+    
+    .avatar-container {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        margin: 0 auto;
+    }
+    
+    .profile-avatar {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+    
+    .avatar-overlay {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+    }
+    
+    .avatar-edit-btn {
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .profile-info {
+        padding: 15px;
+    }
+    
+    .info-item {
+        display: flex;
+        margin-bottom: 15px;
+        align-items: center;
+    }
+    
+    .info-icon {
+        width: 40px;
+        height: 40px;
+        background-color: #f8f9fa;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        color: #6c757d;
+    }
+    
+    .info-label {
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 0.2rem;
+        font-size: 0.9rem;
+    }
+    
+    .info-value {
+        color: #6c757d;
+        margin-bottom: 0;
+    }
+    
+    .btn-primary {
+        background-color: #4e73df;
+        border-color: #4e73df;
+    }
+    
+    .btn-primary:hover {
+        background-color: #3a5ec4;
+        border-color: #3a5ec4;
+    }
+</style>
+
+ *@
+
+
+
+
+@* <div class="profile-dashboard">
+    <!-- Hoşgeldiniz Bölümü -->
+    <div class="welcome-section text-center mb-4">
+        <h1 class="welcome-title">Merhaba, <span class="text-primary">@Model.FirstName</span>!</h1>
+        <p class="welcome-subtitle">Bugün @DateTime.Now.ToString("dd MMMM yyyy, dddd")</p>
+    </div>
+
+    <div class="row">
+        <!-- Sol Taraf - Profil Bilgileri -->
+        <div class="col-lg-4">
+            <div class="card profile-card shadow-sm mb-4">
+                <div class="card-body text-center">
+                    <div class="avatar-container mb-3">
+                        <img src="@Model.Avatar" class="profile-avatar" alt="Profil Fotoğrafı">
+                        <button class="avatar-edit-btn" title="Fotoğrafı Değiştir">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                    <h4 class="profile-name">@Model.FirstName @Model.Surname</h4>
+                    <p class="text-muted mb-3">@Model.Proficiency - @Model.Department</p>
+                    
+                    <div class="profile-stats d-flex justify-content-around mb-3">
+                        <div>
+                            <h5 class="mb-0">24</h5>
+                            <small>Görev</small>
+                        </div>
+                        <div>
+                            <h5 class="mb-0">12</h5>
+                            <small>Tamamlanan</small>
+                        </div>
+                        <div>
+                            <h5 class="mb-0">89%</h5>
+                            <small>Verimlilik</small>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary btn-block">
+                        <i class="fas fa-user-edit mr-2"></i>Profili Düzenle
+                    </button>
+                </div>
+            </div>
+
+            <!-- Hava Durumu Bileşeni -->
+            <div class="card weather-card shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title d-flex justify-content-between align-items-center">
+                        <span><i class="fas fa-cloud-sun mr-2"></i>Hava Durumu</span>
+                        <small>İstanbul</small>
+                    </h5>
+                    <div class="weather-info text-center">
+                        <div class="weather-icon mb-2">
+                            <i class="fas fa-sun fa-3x text-warning"></i>
+                        </div>
+                        <h2 class="weather-temp">24°C</h2>
+                        <p class="weather-desc">Güneşli</p>
+                        <div class="weather-details d-flex justify-content-between">
+                            <span><i class="fas fa-wind mr-1"></i> 8 km/s</span>
+                            <span><i class="fas fa-tint mr-1"></i> %45</span>
+                            <span><i class="fas fa-compass mr-1"></i> KD</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sağ Taraf - Diğer Bileşenler -->
+        <div class="col-lg-8">
+            <!-- Hızlı Erişim Butonları -->
+            <div class="row quick-actions mb-4">
+                <div class="col-6 col-md-3 mb-3">
+                    <a href="#" class="btn btn-light btn-block quick-action-btn">
+                        <i class="fas fa-calendar-alt fa-2x mb-2"></i>
+                        <span>Takvim</span>
+                    </a>
+                </div>
+                <div class="col-6 col-md-3 mb-3">
+                    <a href="#" class="btn btn-light btn-block quick-action-btn">
+                        <i class="fas fa-tasks fa-2x mb-2"></i>
+                        <span>Görevler</span>
+                    </a>
+                </div>
+                <div class="col-6 col-md-3 mb-3">
+                    <a href="#" class="btn btn-light btn-block quick-action-btn">
+                        <i class="fas fa-envelope fa-2x mb-2"></i>
+                        <span>Mesajlar</span>
+                    </a>
+                </div>
+                <div class="col-6 col-md-3 mb-3">
+                    <a href="#" class="btn btn-light btn-block quick-action-btn">
+                        <i class="fas fa-cog fa-2x mb-2"></i>
+                        <span>Ayarlar</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Takvim ve Hatırlatıcılar -->
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-calendar-day mr-2"></i>Bugünkü Etkinlikler</span>
+                                <a href="#" class="btn btn-sm btn-outline-primary">Tümü</a>
+                            </h5>
+                            <div class="events-list">
+                                <div class="event-item">
+                                    <div class="event-time">10:00 - 11:30</div>
+                                    <div class="event-title">Ekip Toplantısı</div>
+                                    <div class="event-location"><i class="fas fa-map-marker-alt"></i> Toplantı Odası A</div>
+                                </div>
+                                <div class="event-item">
+                                    <div class="event-time">14:00 - 15:00</div>
+                                    <div class="event-title">Müşteri Görüşmesi</div>
+                                    <div class="event-location"><i class="fas fa-video"></i> Zoom</div>
+                                </div>
+                                <div class="event-item">
+                                    <div class="event-time">16:30 - 17:00</div>
+                                    <div class="event-title">Rapor Teslimi</div>
+                                    <div class="event-location"><i class="fas fa-clock"></i> Son Teslim</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-bell mr-2"></i>Hatırlatıcılar</span>
+                                <a href="#" class="btn btn-sm btn-outline-primary">Yeni Ekle</a>
+                            </h5>
+                            <div class="reminders-list">
+                                <div class="reminder-item">
+                                    <div class="reminder-check"><input type="checkbox"></div>
+                                    <div class="reminder-content">
+                                        <div class="reminder-title">Proje raporunu tamamla</div>
+                                        <div class="reminder-date"><i class="far fa-clock"></i> Yarın, 09:00</div>
+                                    </div>
+                                </div>
+                                <div class="reminder-item">
+                                    <div class="reminder-check"><input type="checkbox"></div>
+                                    <div class="reminder-content">
+                                        <div class="reminder-title">Faturaları öde</div>
+                                        <div class="reminder-date"><i class="far fa-clock"></i> 5 Mayıs</div>
+                                    </div>
+                                </div>
+                                <div class="reminder-item">
+                                    <div class="reminder-check"><input type="checkbox"></div>
+                                    <div class="reminder-content">
+                                        <div class="reminder-title">Doktor randevusu</div>
+                                        <div class="reminder-date"><i class="far fa-clock"></i> 8 Mayıs, 14:30</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hızlı Notlar -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-sticky-note mr-2"></i>Hızlı Notlar</h5>
+                    <textarea class="form-control quick-notes" rows="3" placeholder="Buraya notlarınızı yazabilirsiniz..."></textarea>
+                    <div class="d-flex justify-content-between mt-2">
+                        <small class="text-muted">Notlar otomatik kaydedilir</small>
+                        <button class="btn btn-sm btn-primary">Kaydet</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .profile-dashboard {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    .welcome-title {
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+    }
+    
+    .welcome-subtitle {
+        font-size: 1.1rem;
+        color: #6c757d;
+    }
+    
+    .profile-card {
+        border-radius: 10px;
+        border: none;
+        overflow: hidden;
+    }
+    
+    .avatar-container {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        margin: 0 auto;
+    }
+    
+    .profile-avatar {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 5px solid #f8f9fa;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .avatar-edit-btn {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: #4e73df;
+        color: white;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+    
+    .profile-name {
+        font-weight: 600;
+        margin-top: 15px;
+        color: #2c3e50;
+    }
+    
+    .profile-stats {
+        background: #f8f9fa;
+        padding: 10px;
+        border-radius: 8px;
+    }
+    
+    .profile-stats h5 {
+        font-weight: 700;
+        color: #4e73df;
+    }
+    
+    .weather-card {
+        border-radius: 10px;
+        border: none;
+    }
+    
+    .weather-icon {
+        margin: 10px 0;
+    }
+    
+    .weather-temp {
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: #2c3e50;
+    }
+    
+    .weather-desc {
+        color: #6c757d;
+        margin-bottom: 15px;
+    }
+    
+    .weather-details span {
+        font-size: 0.85rem;
+    }
+    
+    .quick-action-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 15px 5px;
+        border-radius: 8px;
+        transition: all 0.3s;
+    }
+    
+    .quick-action-btn:hover {
+        background: #e9ecef;
+        transform: translateY(-3px);
+    }
+    
+    .quick-action-btn i {
+        color: #4e73df;
+    }
+    
+    .event-item {
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .event-item:last-child {
+        border-bottom: none;
+    }
+    
+    .event-time {
+        font-size: 0.8rem;
+        color: #6c757d;
+    }
+    
+    .event-title {
+        font-weight: 600;
+        margin: 3px 0;
+    }
+    
+    .event-location {
+        font-size: 0.8rem;
+        color: #6c757d;
+    }
+    
+    .reminder-item {
+        display: flex;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+        align-items: center;
+    }
+    
+    .reminder-check {
+        margin-right: 10px;
+    }
+    
+    .reminder-title {
+        font-weight: 500;
+    }
+    
+    .reminder-date {
+        font-size: 0.8rem;
+        color: #6c757d;
+    }
+    
+    .quick-notes {
+        border: 1px solid #eee;
+        border-radius: 8px;
+        resize: none;
+    }
+    
+    .quick-notes:focus {
+        box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+    }
+</style>
+
+<!-- Gerekli JS Kütüphaneleri --> *@
+
+
+
+@* <div class="profile-dashboard" id="profileApp">
+    <!-- Hoşgeldiniz Bölümü -->
+    <div class="welcome-section text-center mb-4">
+        <h1 class="welcome-title">Merhaba, <span class="text-primary">@Model.FirstName</span>!</h1>
+        <p class="welcome-subtitle">{{ currentDate }}</p>
+    </div>
+
+    <div class="row">
+        <!-- Sol Taraf - Profil Bilgileri -->
+        <div class="col-lg-4">
+            <div class="card profile-card shadow-sm mb-4">
+                <div class="card-body text-center">
+                    <div class="avatar-container mb-3">
+                        <img src="@Model.Avatar" class="profile-avatar" alt="Profil Fotoğrafı">
+                        <button class="avatar-edit-btn" title="Fotoğrafı Değiştir" v-on:click="changeAvatar">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                    <h4 class="profile-name">@Model.FirstName @Model.Surname</h4>
+                    <p class="text-muted mb-3">@Model.Proficiency - @Model.Department</p>
+                    
+                    <div class="profile-info">
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>@Model.Email</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span>@Model.PhoneNumber</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>@Model.Address</span>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary btn-block mt-3" v-on:click="editProfile">
+                        <i class="fas fa-user-edit mr-2"></i>Profili Düzenle
+                    </button>
+                </div>
+            </div>
+
+            <!-- Hava Durumu Bileşeni -->
+            <div class="card weather-card shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title d-flex justify-content-between align-items-center">
+                        <span><i class="fas fa-cloud-sun mr-2"></i>Hava Durumu</span>
+                        <select class="form-control form-control-sm city-select" v-model="selectedCity" v-on:change="getWeather">
+                            <option value="Istanbul">İstanbul</option>
+                            <option value="Ankara">Ankara</option>
+                            <option value="Izmir">İzmir</option>
+                        </select>
+                    </h5>
+                    <div class="weather-info text-center" v-if="weatherData">
+                        <div class="weather-icon mb-2">
+                            <i v-bind:class="weatherIcon" class="fa-3x" v-bind:style="{color: weatherIconColor}"></i>
+                        </div>
+                        <h2 class="weather-temp">{{ weatherData.main.temp }}°C</h2>
+                        <p class="weather-desc">{{ weatherData.weather[0].description }}</p>
+                        <div class="weather-details d-flex justify-content-between">
+                            <span><i class="fas fa-wind mr-1"></i> {{ weatherData.wind.speed }} km/s</span>
+                            <span><i class="fas fa-tint mr-1"></i> %{{ weatherData.main.humidity }}</span>
+                            <span><i class="fas fa-compass mr-1"></i> {{ weatherData.wind.deg }}°</span>
+                        </div>
+                    </div>
+                    <div v-else class="text-center py-3">
+                        <i class="fas fa-spinner fa-spin"></i> Hava durumu yükleniyor...
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sağ Taraf - Diğer Bileşenler -->
+        <div class="col-lg-8">
+            <!-- Hızlı Erişim Butonları -->
+            <div class="row quick-actions mb-4">
+                <div class="col-6 col-md-3 mb-3">
+                    <button class="btn btn-light btn-block quick-action-btn" v-on:click="toggleCalendar">
+                        <i class="fas fa-calendar-alt fa-2x mb-2"></i>
+                        <span>Takvim</span>
+                    </button>
+                </div>
+                <div class="col-6 col-md-3 mb-3">
+                    <button class="btn btn-light btn-block quick-action-btn" v-on:click="showEventModal">
+                        <i class="fas fa-plus-circle fa-2x mb-2"></i>
+                        <span>Etkinlik Ekle</span>
+                    </button>
+                </div>
+                <div class="col-6 col-md-3 mb-3">
+                    <button class="btn btn-light btn-block quick-action-btn" v-on:click="showReminderModal">
+                        <i class="fas fa-bell fa-2x mb-2"></i>
+                        <span>Hatırlatıcı Ekle</span>
+                    </button>
+                </div>
+                <div class="col-6 col-md-3 mb-3">
+                    <button class="btn btn-light btn-block quick-action-btn" v-on:click="refreshData">
+                        <i class="fas fa-sync-alt fa-2x mb-2"></i>
+                        <span>Yenile</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Takvim ve Etkinlikler -->
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-calendar-day mr-2"></i>Bugünkü Etkinlikler</span>
+                                <button class="btn btn-sm btn-outline-primary" v-on:click="showEventModal">Yeni Ekle</button>
+                            </h5>
+                            <div class="events-list">
+                                <div class="event-item" v-for="(event, index) in todaysEvents" v-bind:key="index">
+                                    <div class="event-time">{{ event.time }}</div>
+                                    <div class="event-title">{{ event.title }}</div>
+                                    <div class="event-location">
+                                        <i v-bind:class="event.locationIcon"></i> {{ event.location }}
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-danger event-delete" v-on:click="deleteEvent(index)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                                <div class="text-center py-2" v-if="todaysEvents.length === 0">
+                                    <p class="text-muted">Bugünkü etkinlik bulunmamaktadır.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-bell mr-2"></i>Hatırlatıcılar</span>
+                                <button class="btn btn-sm btn-outline-primary" v-on:click="showReminderModal">Yeni Ekle</button>
+                            </h5>
+                            <div class="reminders-list">
+                                <div class="reminder-item" v-for="(reminder, index) in reminders" v-bind:key="index">
+                                    <div class="reminder-check">
+                                        <input type="checkbox" v-model="reminder.completed" v-on:change="saveReminders">
+                                    </div>
+                                    <div class="reminder-content">
+                                        <div class="reminder-title" v-bind:class="{ 'completed': reminder.completed }">{{ reminder.title }}</div>
+                                        <div class="reminder-date"><i class="far fa-clock"></i> {{ formatReminderDate(reminder.datetime) }}</div>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-danger reminder-delete" v-on:click="deleteReminder(index)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                                <div class="text-center py-2" v-if="reminders.length === 0">
+                                    <p class="text-muted">Hatırlatıcı bulunmamaktadır.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hızlı Notlar -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-sticky-note mr-2"></i>Hızlı Notlar</h5>
+                    <textarea class="form-control quick-notes" rows="3" 
+                              v-model="quickNote" 
+                              v-on:input="saveQuickNote"
+                              placeholder="Buraya notlarınızı yazabilirsiniz..."></textarea>
+                    <div class="d-flex justify-content-between mt-2">
+                        <small class="text-muted">Notlar otomatik kaydedilir</small>
+                        <span class="text-success" v-if="noteSaved"><i class="fas fa-check"></i> Kaydedildi</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Takvim Görünümü -->
+            <div class="card shadow-sm mb-4" v-if="showCalendar">
+                <div class="card-body">
+                    <h5 class="card-title d-flex justify-content-between align-items-center">
+                        <span><i class="fas fa-calendar-alt mr-2"></i>Takvim</span>
+                        <div>
+                            <button class="btn btn-sm btn-outline-secondary" v-on:click="prevMonth">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <span class="mx-2">{{ currentMonthName }} {{ currentYear }}</span>
+                            <button class="btn btn-sm btn-outline-secondary" v-on:click="nextMonth">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </h5>
+                    <div class="calendar">
+                        <div class="calendar-header">
+                            <div class="calendar-day-header" v-for="day in daysOfWeek" v-bind:key="day">{{ day }}</div>
+                        </div>
+                        <div class="calendar-body">
+                            <div class="calendar-day" 
+                                 v-for="day in calendarDays" 
+                                 v-bind:key="day.date"
+                                 v-bind:class="{
+                                     'current-month': day.isCurrentMonth,
+                                     'today': day.isToday,
+                                     'has-events': day.hasEvents
+                                 }"
+                                 v-on:click="viewDayEvents(day)">
+                                <div class="day-number">{{ day.day }}</div>
+                                <div class="day-events" v-if="day.hasEvents">
+                                    <span class="event-dot"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Etkinlik Ekleme Modalı -->
+    <div class="modal fade" id="eventModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Yeni Etkinlik Ekle</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Etkinlik Başlığı</label>
+                        <input type="text" class="form-control" v-model="newEvent.title">
+                    </div>
+                    <div class="form-group">
+                        <label>Tarih ve Saat</label>
+                        <input type="datetime-local" class="form-control" v-model="newEvent.datetime">
+                    </div>
+                    <div class="form-group">
+                        <label>Konum</label>
+                        <input type="text" class="form-control" v-model="newEvent.location">
+                    </div>
+                    <div class="form-group">
+                        <label>Konum Türü</label>
+                        <select class="form-control" v-model="newEvent.locationType">
+                            <option value="meeting">Toplantı Odası</option>
+                            <option value="zoom">Zoom</option>
+                            <option value="deadline">Son Teslim</option>
+                            <option value="other">Diğer</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">İptal</button>
+                    <button type="button" class="btn btn-primary" v-on:click="saveEvent">Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hatırlatıcı Ekleme Modalı -->
+    <div class="modal fade" id="reminderModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Yeni Hatırlatıcı Ekle</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Hatırlatıcı Başlığı</label>
+                        <input type="text" class="form-control" v-model="newReminder.title">
+                    </div>
+                    <div class="form-group">
+                        <label>Tarih ve Saat</label>
+                        <input type="datetime-local" class="form-control" v-model="newReminder.datetime">
+                    </div>
+                    <div class="form-group">
+                        <label>Öncelik</label>
+                        <select class="form-control" v-model="newReminder.priority">
+                            <option value="low">Düşük</option>
+                            <option value="medium">Orta</option>
+                            <option value="high">Yüksek</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">İptal</button>
+                    <button type="button" class="btn btn-primary" v-on:click="saveReminder">Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CSS Stilleri -->
+<style>
+    .profile-dashboard {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    .welcome-title {
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+    }
+    
+    .welcome-subtitle {
+        font-size: 1.1rem;
+        color: #6c757d;
+    }
+    
+    .profile-card {
+        border-radius: 10px;
+        border: none;
+        overflow: hidden;
+    }
+    
+    .avatar-container {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        margin: 0 auto;
+    }
+    
+    .profile-avatar {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 5px solid #f8f9fa;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .avatar-edit-btn {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: #4e73df;
+        color: white;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+    
+    .profile-name {
+        font-weight: 600;
+        margin-top: 15px;
+        color: #2c3e50;
+    }
+    
+    .profile-info {
+        text-align: left;
+        margin-top: 20px;
+    }
+    
+    .info-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    
+    .info-item i {
+        width: 24px;
+        color: #6c757d;
+        margin-right: 10px;
+    }
+    
+    .weather-card {
+        border-radius: 10px;
+        border: none;
+    }
+    
+    .weather-icon {
+        margin: 10px 0;
+    }
+    
+    .weather-temp {
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: #2c3e50;
+    }
+    
+    .weather-desc {
+        color: #6c757d;
+        margin-bottom: 15px;
+        text-transform: capitalize;
+    }
+    
+    .weather-details span {
+        font-size: 0.85rem;
+    }
+    
+    .city-select {
+        width: auto;
+        display: inline-block;
+    }
+    
+    .quick-action-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 15px 5px;
+        border-radius: 8px;
+        transition: all 0.3s;
+        width: 100%;
+    }
+    
+    .quick-action-btn:hover {
+        background: #e9ecef;
+        transform: translateY(-3px);
+    }
+    
+    .quick-action-btn i {
+        color: #4e73df;
+    }
+    
+    .event-item {
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+        position: relative;
+    }
+    
+    .event-time {
+        font-size: 0.8rem;
+        color: #6c757d;
+    }
+    
+    .event-title {
+        font-weight: 600;
+        margin: 3px 0;
+    }
+    
+    .event-location {
+        font-size: 0.8rem;
+        color: #6c757d;
+    }
+    
+    .event-delete {
+        position: absolute;
+        right: 0;
+        top: 10px;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+    
+    .event-item:hover .event-delete {
+        opacity: 1;
+    }
+    
+    .reminder-item {
+        display: flex;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+        align-items: center;
+        position: relative;
+    }
+    
+    .reminder-check {
+        margin-right: 10px;
+    }
+    
+    .reminder-title {
+        font-weight: 500;
+    }
+    
+    .reminder-title.completed {
+        text-decoration: line-through;
+        color: #6c757d;
+    }
+    
+    .reminder-date {
+        font-size: 0.8rem;
+        color: #6c757d;
+    }
+    
+    .reminder-delete {
+        position: absolute;
+        right: 0;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+    
+    .reminder-item:hover .reminder-delete {
+        opacity: 1;
+    }
+    
+    .quick-notes {
+        border: 1px solid #eee;
+        border-radius: 8px;
+        resize: none;
+    }
+    
+    .quick-notes:focus {
+        box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+    }
+    
+    .calendar {
+        font-family: Arial, sans-serif;
+    }
+    
+    .calendar-header {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    
+    .calendar-body {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 5px;
+    }
+    
+    .calendar-day {
+        height: 60px;
+        border: 1px solid #eee;
+        padding: 5px;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    
+    .calendar-day:hover {
+        background-color: #f8f9fa;
+    }
+    
+    .calendar-day.current-month {
+        background-color: white;
+    }
+    
+    .calendar-day:not(.current-month) {
+        background-color: #f8f9fa;
+        color: #6c757d;
+    }
+    
+    .calendar-day.today {
+        background-color: #e3f2fd;
+        font-weight: bold;
+    }
+    
+    .calendar-day.has-events {
+        position: relative;
+    }
+    
+    .day-number {
+        font-size: 0.9rem;
+    }
+    
+    .day-events {
+        position: absolute;
+        bottom: 2px;
+        left: 0;
+        right: 0;
+        text-align: center;
+    }
+    
+    .event-dot {
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        background-color: #4e73df;
+        border-radius: 50%;
+    }
+    
+    .text-success {
+        color: #28a745;
+    }
+</style>
+
+<!-- Gerekli JS Kütüphaneleri -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Vue Uygulaması
+    new Vue({
+        el: '#profileApp',
+        data: {
+            currentDate: '',
+            selectedCity: 'Istanbul',
+            weatherData: null,
+            showCalendar: false,
+            currentMonth: new Date().getMonth(),
+            currentYear: new Date().getFullYear(),
+            daysOfWeek: ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'],
+            events: [],
+            reminders: [],
+            quickNote: '',
+            noteSaved: false,
+            newEvent: {
+                title: '',
+                datetime: '',
+                location: '',
+                locationType: 'meeting'
+            },
+            newReminder: {
+                title: '',
+                datetime: '',
+                priority: 'medium'
+            }
+        },
+        computed: {
+            weatherIcon() {
+                if (!this.weatherData) return 'fas fa-cloud';
+                const weather = this.weatherData.weather[0].main.toLowerCase();
+                const icons = {
+                    'clear': 'fas fa-sun',
+                    'clouds': 'fas fa-cloud',
+                    'rain': 'fas fa-cloud-rain',
+                    'snow': 'fas fa-snowflake',
+                    'thunderstorm': 'fas fa-bolt',
+                    'drizzle': 'fas fa-cloud-rain',
+                    'mist': 'fas fa-smog'
+                };
+                return icons[weather] || 'fas fa-cloud';
+            },
+            weatherIconColor() {
+                if (!this.weatherData) return '#6c757d';
+                const weather = this.weatherData.weather[0].main.toLowerCase();
+                const colors = {
+                    'clear': '#ffc107',
+                    'clouds': '#6c757d',
+                    'rain': '#17a2b8',
+                    'snow': '#17a2b8',
+                    'thunderstorm': '#ffc107',
+                    'drizzle': '#17a2b8',
+                    'mist': '#6c757d'
+                };
+                return colors[weather] || '#6c757d';
+            },
+            todaysEvents() {
+                const today = new Date().toISOString().split('T')[0];
+                return this.events
+                    .filter(event => event.datetime.startsWith(today))
+                    .map(event => {
+                        const time = new Date(event.datetime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                        const locationIcons = {
+                            'meeting': 'fas fa-map-marker-alt',
+                            'zoom': 'fas fa-video',
+                            'deadline': 'fas fa-clock',
+                            'other': 'fas fa-info-circle'
+                        };
+                        return {
+                            ...event,
+                            time: time,
+                            locationIcon: locationIcons[event.locationType]
+                        };
+                    });
+            },
+            currentMonthName() {
+                const months = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+                return months[this.currentMonth];
+            },
+            calendarDays() {
+                const firstDayOfMonth = new Date(this.currentYear, this.currentMonth, 1);
+                const lastDayOfMonth = new Date(this.currentYear, this.currentMonth + 1, 0);
+                const daysInMonth = lastDayOfMonth.getDate();
+                const startingDay = firstDayOfMonth.getDay() === 0 ? 6 : firstDayOfMonth.getDay() - 1; // Pazartesi başlangıç
+                
+                // Önceki ayın son günleri
+                const prevMonthDays = [];
+                const prevMonthLastDay = new Date(this.currentYear, this.currentMonth, 0).getDate();
+                for (let i = startingDay - 1; i >= 0; i--) {
+                    prevMonthDays.push({
+                        day: prevMonthLastDay - i,
+                        isCurrentMonth: false,
+                        isToday: false,
+                        hasEvents: false,
+                        date: new Date(this.currentYear, this.currentMonth - 1, prevMonthLastDay - i).toISOString().split('T')[0]
+                    });
+                }
+                
+                // Bu ayın günleri
+                const currentMonthDays = [];
+                const today = new Date();
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const dateStr = new Date(this.currentYear, this.currentMonth, i).toISOString().split('T')[0];
+                    const hasEvents = this.events.some(event => event.datetime.startsWith(dateStr));
+                    currentMonthDays.push({
+                        day: i,
+                        isCurrentMonth: true,
+                        isToday: today.getDate() === i && today.getMonth() === this.currentMonth && today.getFullYear() === this.currentYear,
+                        hasEvents: hasEvents,
+                        date: dateStr
+                    });
+                }
+                
+                // Sonraki ayın ilk günleri
+                const nextMonthDays = [];
+                const totalCells = Math.ceil((prevMonthDays.length + daysInMonth) / 7) * 7;
+                const remainingDays = totalCells - (prevMonthDays.length + daysInMonth);
+                for (let i = 1; i <= remainingDays; i++) {
+                    nextMonthDays.push({
+                        day: i,
+                        isCurrentMonth: false,
+                        isToday: false,
+                        hasEvents: false,
+                        date: new Date(this.currentYear, this.currentMonth + 1, i).toISOString().split('T')[0]
+                    });
+                }
+                
+                return [...prevMonthDays, ...currentMonthDays, ...nextMonthDays];
+            }
+        },
+        methods: {
+            updateCurrentDate() {
+                const now = new Date();
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                this.currentDate = now.toLocaleDateString('tr-TR', options);
+            },
+            // getWeather() {
+            //     const apiKey = 'YOUR_OPENWEATHER_API_KEY'; // OpenWeatherMap API key
+            //     const url = `https://api.openweathermap.org/data/2.5/weather?q=${this.selectedCity},TR&units=metric&appid=${apiKey}&lang=tr`;
+                
+            //     axios.get(url)
+            //         .then(response => {
+            //             this.weatherData = response.data;
+            //         })
+            //         .catch(error => {
+            //             console.error('Hava durumu alınırken hata oluştu:', error);
+            //             // Fallback data
+            //             this.weatherData = {
+            //                 main: {
+            //                     temp: 24,
+            //                     humidity: 45
+            //                 },
+            //                 weather: [{
+            //                     description: "açık",
+            //                     main: "Clear"
+            //                 }],
+            //                 wind: {
+            //                     speed: 8,
+            //                     deg: 45
+            //                 }
+            //             };
+            //         });
+            // },
+            getWeather() {
+                // Open-Meteo API için İstanbul'un enlem ve boylamı (varsayılan)
+                const latitude = this.selectedCity === 'Istanbul' ? 41.01 :
+                    this.selectedCity === 'Ankara' ? 39.93 :
+                        this.selectedCity === 'Izmir' ? 38.42 : 41.01;
+                const longitude = this.selectedCity === 'Istanbul' ? 28.98 :
+                    this.selectedCity === 'Ankara' ? 32.86 :
+                        this.selectedCity === 'Izmir' ? 27.14 : 28.98;
+
+                const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&hourly=temperature_2m,relativehumidity_2m,windspeed_10m,winddirection_10m&timezone=auto`;
+
+                axios.get(url)
+                    .then(response => {
+                        const data = response.data;
+                        this.weatherData = {
+                            main: {
+                                temp: data.current_weather.temperature,
+                                humidity: data.hourly.relativehumidity_2m[0]
+                            },
+                            weather: [{
+                                description: this.getWeatherDescription(data.current_weather.weathercode),
+                                main: this.getWeatherMain(data.current_weather.weathercode)
+                            }],
+                            wind: {
+                                speed: data.current_weather.windspeed,
+                                deg: data.current_weather.winddirection
+                            }
+                        };
+                    })
+                    .catch(error => {
+                        console.error('Hava durumu alınırken hata oluştu:', error);
+                        // Fallback data
+                        this.weatherData = {
+                            main: {
+                                temp: 24,
+                                humidity: 45
+                            },
+                            weather: [{
+                                description: "açık",
+                                main: "Clear"
+                            }],
+                            wind: {
+                                speed: 8,
+                                deg: 45
+                            }
+                        };
+                    });
+            },
+            getWeatherDescription(code) {
+                const descriptions = {
+                    0: "açık",
+                    1: "çoğunlukla açık",
+                    2: "parçalı bulutlu",
+                    3: "bulutlu",
+                    45: "sis",
+                    48: "don sisi",
+                    51: "hafif çisenti",
+                    53: "orta çisenti",
+                    55: "yoğun çisenti",
+                    56: "hafif don çisenti",
+                    57: "yoğun don çisenti",
+                    61: "hafif yağmur",
+                    63: "orta yağmur",
+                    65: "yoğun yağmur",
+                    66: "hafif don yağmuru",
+                    67: "yoğun don yağmuru",
+                    71: "hafif kar",
+                    73: "orta kar",
+                    75: "yoğun kar",
+                    77: "kar taneleri",
+                    80: "hafif sağanak",
+                    81: "orta sağanak",
+                    82: "yoğun sağanak",
+                    85: "hafif kar sağanağı",
+                    86: "yoğun kar sağanağı",
+                    95: "gök gürültülü fırtına",
+                    96: "hafif dolu",
+                    99: "yoğun dolu"
+                };
+                return descriptions[code] || "bilinmeyen";
+            },
+            getWeatherMain(code) {
+                if (code === 0) return "Clear";
+                if (code <= 3) return "Clouds";
+                if (code <= 57) return "Drizzle";
+                if (code <= 67) return "Rain";
+                if (code <= 77) return "Snow";
+                if (code <= 86) return "Rain";
+                if (code <= 99) return "Thunderstorm";
+                return "Clear";
+            },
+            toggleCalendar() {
+                this.showCalendar = !this.showCalendar;
+            },
+            prevMonth() {
+                if (this.currentMonth === 0) {
+                    this.currentMonth = 11;
+                    this.currentYear--;
+                } else {
+                    this.currentMonth--;
+                }
+            },
+            nextMonth() {
+                if (this.currentMonth === 11) {
+                    this.currentMonth = 0;
+                    this.currentYear++;
+                } else {
+                    this.currentMonth++;
+                }
+            },
+            viewDayEvents(day) {
+                if (day.hasEvents) {
+                    alert(`${day.date} tarihli etkinlikler görüntülenecek`);
+                    // Burada günün etkinliklerini gösterebilirsiniz
+                }
+            },
+            formatReminderDate(dateString) {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('tr-TR') + ' ' + date.toLocaleTimeString('tr-TR', {hour: '2-digit', minute:'2-digit'});
+            },
+            loadEvents() {
+                const savedEvents = localStorage.getItem('profileEvents');
+                if (savedEvents) {
+                    this.events = JSON.parse(savedEvents);
+                } else {
+                    // Varsayılan etkinlikler
+                    const today = new Date();
+                    const tomorrow = new Date();
+                    tomorrow.setDate(today.getDate() + 1);
+                    
+                    this.events = [
+                        {
+                            title: "Ekip Toplantısı",
+                            datetime: today.toISOString().split('T')[0] + "T10:00:00",
+                            location: "Toplantı Odası A",
+                            locationType: "meeting"
+                        },
+                        {
+                            title: "Müşteri Görüşmesi",
+                            datetime: today.toISOString().split('T')[0] + "T14:00:00",
+                            location: "Zoom Meeting",
+                            locationType: "zoom"
+                        },
+                        {
+                            title: "Proje Teslimi",
+                            datetime: tomorrow.toISOString().split('T')[0] + "T17:00:00",
+                            location: "Son Teslim Tarihi",
+                            locationType: "deadline"
+                        }
+                    ];
+                    this.saveEvents();
+                }
+            },
+            saveEvents() {
+                localStorage.setItem('profileEvents', JSON.stringify(this.events));
+            },
+            loadReminders() {
+                const savedReminders = localStorage.getItem('profileReminders');
+                if (savedReminders) {
+                    this.reminders = JSON.parse(savedReminders);
+                } else {
+                    // Varsayılan hatırlatıcılar
+                    const today = new Date();
+                    const nextWeek = new Date();
+                    nextWeek.setDate(today.getDate() + 7);
+                    
+                    this.reminders = [
+                        {
+                            title: "Proje raporunu tamamla",
+                            datetime: today.toISOString().split('T')[0] + "T09:00:00",
+                            priority: "high",
+                            completed: false
+                        },
+                        {
+                            title: "Faturaları öde",
+                            datetime: nextWeek.toISOString().split('T')[0] + "T12:00:00",
+                            priority: "medium",
+                            completed: false
+                        }
+                    ];
+                    this.saveReminders();
+                }
+            },
+            saveReminders() {
+                localStorage.setItem('profileReminders', JSON.stringify(this.reminders));
+            },
+            loadQuickNote() {
+                const savedNote = localStorage.getItem('profileQuickNote');
+                if (savedNote) {
+                    this.quickNote = savedNote;
+                }
+            },
+            saveQuickNote() {
+                localStorage.setItem('profileQuickNote', this.quickNote);
+                this.noteSaved = true;
+                setTimeout(() => {
+                    this.noteSaved = false;
+                }, 2000);
+            },
+            showEventModal() {
+                // Varsayılan tarih olarak şu anki zamanı ayarla
+                const now = new Date();
+                const formattedNow = now.toISOString().slice(0, 16);
+                this.newEvent = {
+                    title: '',
+                    datetime: formattedNow,
+                    location: '',
+                    locationType: 'meeting'
+                };
+                $('#eventModal').modal('show');
+            },
+            saveEvent() {
+                if (!this.newEvent.title || !this.newEvent.datetime) {
+                    alert('Lütfen başlık ve tarih bilgilerini giriniz.');
+                    return;
+                }
+                
+                this.events.push({
+                    title: this.newEvent.title,
+                    datetime: this.newEvent.datetime,
+                    location: this.newEvent.location,
+                    locationType: this.newEvent.locationType
+                });
+                
+                this.saveEvents();
+                $('#eventModal').modal('hide');
+            },
+            deleteEvent(index) {
+                if (confirm('Bu etkinliği silmek istediğinize emin misiniz?')) {
+                    this.events.splice(index, 1);
+                    this.saveEvents();
+                }
+            },
+            showReminderModal() {
+                // Varsayılan tarih olarak şu anki zamanı ayarla
+                const now = new Date();
+                const formattedNow = now.toISOString().slice(0, 16);
+                this.newReminder = {
+                    title: '',
+                    datetime: formattedNow,
+                    priority: 'medium'
+                };
+                $('#reminderModal').modal('show');
+            },
+            saveReminder() {
+                if (!this.newReminder.title || !this.newReminder.datetime) {
+                    alert('Lütfen başlık ve tarih bilgilerini giriniz.');
+                    return;
+                }
+                
+                this.reminders.push({
+                    title: this.newReminder.title,
+                    datetime: this.newReminder.datetime,
+                    priority: this.newReminder.priority,
+                    completed: false
+                });
+                
+                this.saveReminders();
+                $('#reminderModal').modal('hide');
+            },
+            deleteReminder(index) {
+                if (confirm('Bu hatırlatıcıyı silmek istediğinize emin misiniz?')) {
+                    this.reminders.splice(index, 1);
+                    this.saveReminders();
+                }
+            },
+            changeAvatar() {
+                alert('Profil fotoğrafı değiştirme işlemi burada gerçekleştirilebilir.');
+                // Gerçek uygulamada bu bir dosya yükleme modali açabilir
+            },
+            editProfile() {
+                alert('Profil düzenleme sayfasına yönlendirilebilir.');
+                // window.location.href = '/profil-duzenle';
+            },
+            refreshData() {
+                this.getWeather();
+                this.loadEvents();
+                this.loadReminders();
+                this.loadQuickNote();
+                this.updateCurrentDate();
+            }
+        },
+        mounted() {
+            this.updateCurrentDate();
+            this.getWeather();
+            this.loadEvents();
+            this.loadReminders();
+            this.loadQuickNote();
+            
+            // Her saat başı tarihi güncelle
+            setInterval(this.updateCurrentDate, 3600000);
+
+            // Hava durumunu her 30 dakikada bir güncelle
+            setInterval(this.getWeather, 1800000);
+
+            // Sayfa yüklendiğinde modal eventlerini dinle
+            $('#eventModal').on('shown.bs.modal', () => {
+                this.$nextTick(() => {
+                    const firstInput = document.querySelector('#eventModal input');
+                    if (firstInput) firstInput.focus();
+                });
+            });
+
+            $('#reminderModal').on('shown.bs.modal', () => {
+                this.$nextTick(() => {
+                    const firstInput = document.querySelector('#reminderModal input');
+                    if (firstInput) firstInput.focus();
+                });
+            });
+        }
+    });
+</script> *@
+
+
+<div class="profile-dashboard" id="profileApp">
+    <!-- Hoşgeldiniz Bölümü -->
+    <div class="welcome-section text-center mb-4">
+        <h1 class="welcome-title">Merhaba, <span class="text-primary">@Model.FirstName</span>!</h1>
+        <p class="welcome-subtitle">{{ currentDate }}</p>
+    </div>
+
+    <div class="row">
+        <!-- Sol Taraf - Profil Bilgileri -->
+        <div class="col-lg-4">
+            <div class="card profile-card shadow-sm mb-4">
+                <div class="card-body text-center">
+                    <div class="avatar-container mb-3">
+                        <img src="@Model.Avatar" class="profile-avatar" alt="Profil Fotoğrafı">
+                        <button class="avatar-edit-btn" title="Fotoğrafı Değiştir" v-on:click="changeAvatar">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                    <h4 class="profile-name">@Model.FirstName @Model.Surname</h4>
+                    <p class="text-muted mb-3">@Model.Proficiency - @Model.Department</p>
+
+                    <div class="profile-info">
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>@Model.Email</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span>@Model.PhoneNumber</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>@Model.Address</span>
+                        </div>
+                    </div>
+
+                    <!-- Detay sayfasına yönlendirme butonu -->
+                    <a asp-action="Detail" asp-controller="Home" asp-area="SiteAdministrator" class="btn btn-primary mt-3">
+                        Profili Görüntüle / Güncelle
+                    </a>
+                </div>
+            </div>
+
+            <!-- Hava Durumu Bileşeni -->
+            <div class="card weather-card shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title d-flex justify-content-between align-items-center">
+                        <span><i class="fas fa-cloud-sun mr-2"></i>Hava Durumu</span>
+                        <select class="form-control form-control-sm city-select" v-model="selectedCity" v-on:change="getWeather">
+                            <option value="Istanbul">İstanbul</option>
+                            <option value="Ankara">Ankara</option>
+                            <option value="Izmir">İzmir</option>
+                        </select>
+                    </h5>
+                    <div class="weather-info text-center" v-if="weatherData">
+                        <div class="weather-icon mb-2">
+                            <i v-bind:class="weatherIcon" class="fa-3x" v-bind:style="{color: weatherIconColor}"></i>
+                        </div>
+                        <h2 class="weather-temp">{{ weatherData.main.temp }}°C</h2>
+                        <p class="weather-desc">{{ weatherData.weather[0].description }}</p>
+                        <div class="weather-details d-flex justify-content-between">
+                            <span><i class="fas fa-wind mr-1"></i> {{ weatherData.wind.speed }} km/s</span>
+                            <span><i class="fas fa-tint mr-1"></i> %{{ weatherData.main.humidity }}</span>
+                            <span><i class="fas fa-compass mr-1"></i> {{ weatherData.wind.deg }}°</span>
+                        </div>
+                    </div>
+                    <div v-else class="text-center py-3">
+                        <i class="fas fa-spinner fa-spin"></i> Hava durumu yükleniyor...
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sağ Taraf - Diğer Bileşenler -->
+        <div class="col-lg-8">
+            <!-- Takvim ve Etkinlikler -->
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-calendar-day mr-2"></i>Bugünkü Etkinlikler</span>
+                                <button class="btn btn-sm btn-outline-primary" v-on:click="showEventModal">Yeni Ekle</button>
+                            </h5>
+                            <div class="events-list">
+                                <div class="event-item" v-for="(event, index) in todaysEvents" v-bind:key="index">
+                                    <div class="event-time">{{ event.time }}</div>
+                                    <div class="event-title">{{ event.title }}</div>
+                                    <div class="event-location">
+                                        <i v-bind:class="event.locationIcon"></i> {{ event.location }}
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-danger event-delete" v-on:click="deleteEvent(index)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                                <div class="text-center py-2" v-if="todaysEvents.length === 0">
+                                    <p class="text-muted">Bugünkü etkinlik bulunmamaktadır.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-bell mr-2"></i>Hatırlatıcılar</span>
+                                <button class="btn btn-sm btn-outline-primary" v-on:click="showReminderModal">Yeni Ekle</button>
+                            </h5>
+                            <div class="reminders-list">
+                                <div class="reminder-item" v-for="(reminder, index) in reminders" v-bind:key="index">
+                                    <div class="reminder-check">
+                                        <input type="checkbox" v-model="reminder.completed" v-on:change="saveReminders">
+                                    </div>
+                                    <div class="reminder-content">
+                                        <div class="reminder-title" v-bind:class="{ 'completed': reminder.completed }">{{ reminder.title }}</div>
+                                        <div class="reminder-date"><i class="far fa-clock"></i> {{ formatReminderDate(reminder.datetime) }}</div>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-danger reminder-delete" v-on:click="deleteReminder(index)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                                <div class="text-center py-2" v-if="reminders.length === 0">
+                                    <p class="text-muted">Hatırlatıcı bulunmamaktadır.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hızlı Notlar -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-sticky-note mr-2"></i>Hızlı Notlar</h5>
+                    <textarea class="form-control quick-notes" rows="3"
+                              v-model="quickNote"
+                              v-on:input="saveQuickNote"
+                              placeholder="Buraya notlarınızı yazabilirsiniz..."></textarea>
+                    <div class="d-flex justify-content-between mt-2">
+                        <small class="text-muted">Notlar otomatik kaydedilir</small>
+                        <span class="text-success" v-if="noteSaved"><i class="fas fa-check"></i> Kaydedildi</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Takvim Görünümü (Her zaman gösterilecek) -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title d-flex justify-content-between align-items-center">
+                        <span><i class="fas fa-calendar-alt mr-2"></i>Takvim</span>
+                        <div>
+                            <button class="btn btn-sm btn-outline-secondary" v-on:click="prevMonth">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <span class="mx-2">{{ currentMonthName }} {{ currentYear }}</span>
+                            <button class="btn btn-sm btn-outline-secondary" v-on:click="nextMonth">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </h5>
+                    <div class="calendar">
+                        <div class="calendar-header">
+                            <div class="calendar-day-header" v-for="day in daysOfWeek" v-bind:key="day">{{ day }}</div>
+                        </div>
+                        <div class="calendar-body">
+                            <div class="calendar-day"
+                                 v-for="day in calendarDays"
+                                 v-bind:key="day.date"
+                                 v-bind:class="{
+                                     'current-month': day.isCurrentMonth,
+                                     'today': day.isToday,
+                                     'has-events': day.hasEvents,
+                                     'special-day': isSpecialDay(day.date)
+                                 }"
+                                 v-on:click="viewDayEvents(day)">
+                                <div class="day-number">{{ day.day }}</div>
+                                <div class="day-events" v-if="day.hasEvents">
+                                    <span class="event-dot"></span>
+                                </div>
+                                <div class="special-day-label" v-if="isSpecialDay(day.date)">
+                                    {{ getSpecialDayLabel(day.date) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Etkinlik Ekleme Modalı -->
+    <div class="modal fade" id="eventModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Yeni Etkinlik Ekle</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Etkinlik Başlığı</label>
+                        <input type="text" class="form-control" v-model="newEvent.title">
+                    </div>
+                    <div class="form-group">
+                        <label>Tarih ve Saat</label>
+                        <input type="datetime-local" class="form-control" v-model="newEvent.datetime">
+                    </div>
+                    <div class="form-group">
+                        <label>Konum</label>
+                        <input type="text" class="form-control" v-model="newEvent.location">
+                    </div>
+                    <div class="form-group">
+                        <label>Konum Türü</label>
+                        <select class="form-control" v-model="newEvent.locationType">
+                            <option value="meeting">Toplantı Odası</option>
+                            <option value="zoom">Zoom</option>
+                            <option value="deadline">Son Teslim</option>
+                            <option value="other">Diğer</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">İptal</button>
+                    <button type="button" class="btn btn-primary" v-on:click="saveEvent">Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hatırlatıcı Ekleme Modalı -->
+    <div class="modal fade" id="reminderModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Yeni Hatırlatıcı Ekle</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Hatırlatıcı Başlığı</label>
+                        <input type="text" class="form-control" v-model="newReminder.title">
+                    </div>
+                    <div class="form-group">
+                        <label>Tarih ve Saat</label>
+                        <input type="datetime-local" class="form-control" v-model="newReminder.datetime">
+                    </div>
+                    <div class="form-group">
+                        <label>Öncelik</label>
+                        <select class="form-control" v-model="newReminder.priority">
+                            <option value="low">Düşük</option>
+                            <option value="medium">Orta</option>
+                            <option value="high">Yüksek</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">İptal</button>
+                    <button type="button" class="btn btn-primary" v-on:click="saveReminder">Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CSS Stilleri -->
+<style>
+    .profile-dashboard {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .welcome-title {
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+    }
+
+    .welcome-subtitle {
+        font-size: 1.1rem;
+        color: #6c757d;
+    }
+
+    .profile-card {
+        border-radius: 10px;
+        border: none;
+        overflow: hidden;
+        background: linear-gradient(135deg, #f5f7ff 0%, #e8ebfa 100%);
+        border: 1px solid rgba(114, 124, 245, 0.1);
+    }
+
+    .avatar-container {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        margin: 0 auto;
+    }
+
+    .profile-avatar {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 5px solid #f8f9fa;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .avatar-edit-btn {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: #6a5acd;
+        color: white;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+        .avatar-edit-btn:hover {
+            background: #5a4abd;
+            transform: scale(1.1);
+        }
+
+    .profile-name {
+        font-weight: 600;
+        margin-top: 15px;
+        color: #2c3e50;
+    }
+
+    .profile-info {
+        text-align: left;
+        margin-top: 20px;
+    }
+
+    .info-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 8px 12px;
+        border-radius: 6px;
+        transition: all 0.3s;
+    }
+
+        .info-item:hover {
+            background-color: rgba(106, 90, 205, 0.1);
+        }
+
+        .info-item i {
+            width: 24px;
+            color: #6a5acd;
+            margin-right: 10px;
+        }
+
+    .weather-card {
+        border-radius: 10px;
+        border: none;
+        background: linear-gradient(135deg, #f5f7ff 0%, #e8ebfa 100%);
+        border: 1px solid rgba(114, 124, 245, 0.1);
+    }
+
+    .weather-icon {
+        margin: 10px 0;
+    }
+
+    .weather-temp {
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: #2c3e50;
+    }
+
+    .weather-desc {
+        color: #6c757d;
+        margin-bottom: 15px;
+        text-transform: capitalize;
+    }
+
+    .weather-details span {
+        font-size: 0.85rem;
+        color: #5a5a8a;
+    }
+
+    .city-select {
+        width: auto;
+        display: inline-block;
+        border-radius: 20px;
+        border: 1px solid #d1d5f0;
+        background-color: rgba(255,255,255,0.7);
+    }
+
+    .event-item {
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        transition: all 0.3s;
+    }
+
+        .event-item:hover {
+            background-color: rgba(106, 90, 205, 0.05);
+        }
+
+    .event-time {
+        font-size: 0.8rem;
+        color: #6a5acd;
+        font-weight: 500;
+    }
+
+    .event-title {
+        font-weight: 600;
+        margin: 3px 0;
+        color: #3a3a6a;
+    }
+
+    .event-location {
+        font-size: 0.8rem;
+        color: #6c757d;
+    }
+
+    .event-delete {
+        position: absolute;
+        right: 0;
+        top: 10px;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .event-item:hover .event-delete {
+        opacity: 1;
+    }
+
+    .reminder-item {
+        display: flex;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+        align-items: center;
+        position: relative;
+        transition: all 0.3s;
+    }
+
+        .reminder-item:hover {
+            background-color: rgba(106, 90, 205, 0.05);
+        }
+
+    .reminder-check {
+        margin-right: 10px;
+    }
+
+    .reminder-title {
+        font-weight: 500;
+        color: #3a3a6a;
+    }
+
+        .reminder-title.completed {
+            text-decoration: line-through;
+            color: #6c757d;
+        }
+
+    .reminder-date {
+        font-size: 0.8rem;
+        color: #6c757d;
+    }
+
+    .reminder-delete {
+        position: absolute;
+        right: 0;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .reminder-item:hover .reminder-delete {
+        opacity: 1;
+    }
+
+    .quick-notes {
+        border: 1px solid #d1d5f0;
+        border-radius: 8px;
+        resize: none;
+        background-color: rgba(255,255,255,0.7);
+    }
+
+        .quick-notes:focus {
+            box-shadow: 0 0 0 0.2rem rgba(106, 90, 205, 0.25);
+            border-color: #6a5acd;
+        }
+
+    .calendar {
+        font-family: Arial, sans-serif;
+    }
+
+    .calendar-header {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #5a5a8a;
+    }
+
+    .calendar-body {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 5px;
+    }
+
+    .calendar-day {
+        height: 80px;
+        border: 1px solid #e6e6fa;
+        padding: 5px;
+        cursor: pointer;
+        transition: all 0.2s;
+        position: relative;
+        border-radius: 4px;
+        background-color: white;
+    }
+
+        .calendar-day:hover {
+            background-color: #f8f9fa;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .calendar-day.current-month {
+            background-color: white;
+        }
+
+        .calendar-day:not(.current-month) {
+            background-color: #f8f9fa;
+            color: #aaa;
+        }
+
+        .calendar-day.today {
+            background-color: #e6e6fa;
+            font-weight: bold;
+            color: #6a5acd;
+        }
+
+        .calendar-day.has-events {
+            position: relative;
+        }
+
+        .calendar-day.special-day {
+            background-color: #f0e6ff;
+            border-left: 3px solid #6a5acd;
+        }
+
+    .day-number {
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+    .day-events {
+        position: absolute;
+        bottom: 2px;
+        left: 0;
+        right: 0;
+        text-align: center;
+    }
+
+    .event-dot {
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        background-color: #6a5acd;
+        border-radius: 50%;
+    }
+
+    .special-day-label {
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        right: 0;
+        font-size: 0.6rem;
+        color: #6a5acd;
+        font-weight: bold;
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 0 2px;
+    }
+
+    .text-success {
+        color: #28a745;
+    }
+
+    .btn-primary {
+        background-color: #6a5acd;
+        border-color: #6a5acd;
+    }
+
+        .btn-primary:hover {
+            background-color: #5a4abd;
+            border-color: #5a4abd;
+        }
+
+    .btn-outline-primary {
+        color: #6a5acd;
+        border-color: #6a5acd;
+    }
+
+        .btn-outline-primary:hover {
+            background-color: #6a5acd;
+            border-color: #6a5acd;
+        }
+
+    .card {
+        border: none;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        transition: all 0.3s;
+    }
+
+        .card:hover {
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+    .card-title {
+        color: #4a4a7a;
+    }
+</style>
+
+<!-- Gerekli JS Kütüphaneleri -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Vue Uygulaması
+    new Vue({
+        el: '#profileApp',
+        data: {
+            currentDate: '',
+            selectedCity: 'Istanbul',
+            weatherData: null,
+            currentMonth: new Date().getMonth(),
+            currentYear: new Date().getFullYear(),
+            daysOfWeek: ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'],
+            events: [],
+            reminders: [],
+            quickNote: '',
+            noteSaved: false,
+            newEvent: {
+                title: '',
+                datetime: '',
+                location: '',
+                locationType: 'meeting'
+            },
+            newReminder: {
+                title: '',
+                datetime: '',
+                priority: 'medium'
+            },
+            specialDays: {
+                // Özel günler (ay/gün formatında)
+                '01/01': 'Yılbaşı',
+                '23/04': 'Ulusal Egemenlik ve Çocuk Bayramı',
+                '19/05': 'Atatürk\'ü Anma, Gençlik ve Spor Bayramı',
+                '15/07': 'Demokrasi ve Milli Birlik Günü',
+                '30/08': 'Zafer Bayramı',
+                '29/10': 'Cumhuriyet Bayramı',
+                // Kişiye özel günler eklenebilir
+                '07/30': 'Doğum Günüm',
+                '05/01': 'Proje Teslim',
+                '10/22': 'Yıldönümü'
+
+            }
+        },
+        computed: {
+            weatherIcon() {
+                if (!this.weatherData) return 'fas fa-cloud';
+                const weather = this.weatherData.weather[0].main.toLowerCase();
+                const icons = {
+                    'clear': 'fas fa-sun',
+                    'clouds': 'fas fa-cloud',
+                    'rain': 'fas fa-cloud-rain',
+                    'snow': 'fas fa-snowflake',
+                    'thunderstorm': 'fas fa-bolt',
+                    'drizzle': 'fas fa-cloud-rain',
+                    'mist': 'fas fa-smog'
+                };
+                return icons[weather] || 'fas fa-cloud';
+            },
+            weatherIconColor() {
+                if (!this.weatherData) return '#6c757d';
+                const weather = this.weatherData.weather[0].main.toLowerCase();
+                const colors = {
+                    'clear': '#ffc107',
+                    'clouds': '#6c757d',
+                    'rain': '#17a2b8',
+                    'snow': '#17a2b8',
+                    'thunderstorm': '#ffc107',
+                    'drizzle': '#17a2b8',
+                    'mist': '#6c757d'
+                };
+                return colors[weather] || '#6c757d';
+            },
+            todaysEvents() {
+                const today = new Date().toISOString().split('T')[0];
+                return this.events
+                    .filter(event => event.datetime.startsWith(today))
+                    .map(event => {
+                        const time = new Date(event.datetime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                        const locationIcons = {
+                            'meeting': 'fas fa-map-marker-alt',
+                            'zoom': 'fas fa-video',
+                            'deadline': 'fas fa-clock',
+                            'other': 'fas fa-info-circle'
+                        };
+                        return {
+                            ...event,
+                            time: time,
+                            locationIcon: locationIcons[event.locationType]
+                        };
+                    });
+            },
+            currentMonthName() {
+                const months = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+                return months[this.currentMonth];
+            },
+            calendarDays() {
+                const firstDayOfMonth = new Date(this.currentYear, this.currentMonth, 1);
+                const lastDayOfMonth = new Date(this.currentYear, this.currentMonth + 1, 0);
+                const daysInMonth = lastDayOfMonth.getDate();
+                const startingDay = firstDayOfMonth.getDay() === 0 ? 6 : firstDayOfMonth.getDay() - 1; // Pazartesi başlangıç
+
+                // Önceki ayın son günleri
+                const prevMonthDays = [];
+                const prevMonthLastDay = new Date(this.currentYear, this.currentMonth, 0).getDate();
+                for (let i = startingDay - 1; i >= 0; i--) {
+                    prevMonthDays.push({
+                        day: prevMonthLastDay - i,
+                        isCurrentMonth: false,
+                        isToday: false,
+                        hasEvents: false,
+                        date: new Date(this.currentYear, this.currentMonth - 1, prevMonthLastDay - i).toISOString().split('T')[0]
+                    });
+                }
+
+                // Bu ayın günleri
+                const currentMonthDays = [];
+                const today = new Date();
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const dateStr = new Date(this.currentYear, this.currentMonth, i).toISOString().split('T')[0];
+                    const hasEvents = this.events.some(event => event.datetime.startsWith(dateStr));
+                    currentMonthDays.push({
+                        day: i,
+                        isCurrentMonth: true,
+                        isToday: today.getDate() === i && today.getMonth() === this.currentMonth && today.getFullYear() === this.currentYear,
+                        hasEvents: hasEvents,
+                        date: dateStr
+                    });
+                }
+
+                // Sonraki ayın ilk günleri
+                const nextMonthDays = [];
+                const totalCells = Math.ceil((prevMonthDays.length + daysInMonth) / 7) * 7;
+                const remainingDays = totalCells - (prevMonthDays.length + daysInMonth);
+                for (let i = 1; i <= remainingDays; i++) {
+                    nextMonthDays.push({
+                        day: i,
+                        isCurrentMonth: false,
+                        isToday: false,
+                        hasEvents: false,
+                        date: new Date(this.currentYear, this.currentMonth + 1, i).toISOString().split('T')[0]
+                    });
+                }
+
+                return [...prevMonthDays, ...currentMonthDays, ...nextMonthDays];
+            }
+        },
+        methods: {
+            updateCurrentDate() {
+                const now = new Date();
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                this.currentDate = now.toLocaleDateString('tr-TR', options);
+            },
+            getWeather() {
+                // Open-Meteo API için İstanbul'un enlem ve boylamı (varsayılan)
+                const latitude = this.selectedCity === 'Istanbul' ? 41.01 :
+                    this.selectedCity === 'Ankara' ? 39.93 :
+                        this.selectedCity === 'Izmir' ? 38.42 : 41.01;
+                const longitude = this.selectedCity === 'Istanbul' ? 28.98 :
+                    this.selectedCity === 'Ankara' ? 32.86 :
+                        this.selectedCity === 'Izmir' ? 27.14 : 28.98;
+
+                const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&hourly=temperature_2m,relativehumidity_2m,windspeed_10m,winddirection_10m&timezone=auto`;
+
+                axios.get(url)
+                    .then(response => {
+                        const data = response.data;
+                        this.weatherData = {
+                            main: {
+                                temp: data.current_weather.temperature,
+                                humidity: data.hourly.relativehumidity_2m[0]
+                            },
+                            weather: [{
+                                description: this.getWeatherDescription(data.current_weather.weathercode),
+                                main: this.getWeatherMain(data.current_weather.weathercode)
+                            }],
+                            wind: {
+                                speed: data.current_weather.windspeed,
+                                deg: data.current_weather.winddirection
+                            }
+                        };
+                    })
+                    .catch(error => {
+                        console.error('Hava durumu alınırken hata oluştu:', error);
+                        // Fallback data
+                        this.weatherData = {
+                            main: {
+                                temp: 24,
+                                humidity: 45
+                            },
+                            weather: [{
+                                description: "açık",
+                                main: "Clear"
+                            }],
+                            wind: {
+                                speed: 8,
+                                deg: 45
+                            }
+                        };
+                    });
+            },
+            getWeatherDescription(code) {
+                const descriptions = {
+                    0: "açık",
+                    1: "çoğunlukla açık",
+                    2: "parçalı bulutlu",
+                    3: "bulutlu",
+                    45: "sis",
+                    48: "don sisi",
+                    51: "hafif çisenti",
+                    53: "orta çisenti",
+                    55: "yoğun çisenti",
+                    56: "hafif don çisenti",
+                    57: "yoğun don çisenti",
+                    61: "hafif yağmur",
+                    63: "orta yağmur",
+                    65: "yoğun yağmur",
+                    66: "hafif don yağmuru",
+                    67: "yoğun don yağmuru",
+                    71: "hafif kar",
+                    73: "orta kar",
+                    75: "yoğun kar",
+                    77: "kar taneleri",
+                    80: "hafif sağanak",
+                    81: "orta sağanak",
+                    82: "yoğun sağanak",
+                    85: "hafif kar sağanağı",
+                    86: "yoğun kar sağanağı",
+                    95: "gök gürültülü fırtına",
+                    96: "hafif dolu",
+                    99: "yoğun dolu"
+                };
+                return descriptions[code] || "bilinmeyen";
+            },
+            getWeatherMain(code) {
+                if (code === 0) return "Clear";
+                if (code <= 3) return "Clouds";
+                if (code <= 57) return "Drizzle";
+                if (code <= 67) return "Rain";
+                if (code <= 77) return "Snow";
+                if (code <= 86) return "Rain";
+                if (code <= 99) return "Thunderstorm";
+                return "Clear";
+            },
+            prevMonth() {
+                if (this.currentMonth === 0) {
+                    this.currentMonth = 11;
+                    this.currentYear--;
+                } else {
+                    this.currentMonth--;
+                }
+            },
+            nextMonth() {
+                if (this.currentMonth === 11) {
+                    this.currentMonth = 0;
+                    this.currentYear++;
+                } else {
+                    this.currentMonth++;
+                }
+            },
+            viewDayEvents(day) {
+                if (day.hasEvents || this.isSpecialDay(day.date)) {
+                    const date = new Date(day.date);
+                    const formattedDate = date.toLocaleDateString('tr-TR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                    let message = `${formattedDate} tarihine ait bilgiler:\n\n`;
+
+                    if (this.isSpecialDay(day.date)) {
+                        message += `Özel Gün: ${this.getSpecialDayLabel(day.date)}\n\n`;
+                    }
+
+                    const dayEvents = this.events.filter(event => event.datetime.startsWith(day.date));
+                    if (dayEvents.length > 0) {
+                        message += "Etkinlikler:\n";
+                        dayEvents.forEach(event => {
+                            const time = new Date(event.datetime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                            message += `- ${time}: ${event.title} (${event.location})\n`;
+                        });
+                    } else {
+                        message += "Etkinlik bulunmamaktadır.\n";
+                    }
+
+                    alert(message);
+                }
+            },
+            isSpecialDay(dateStr) {
+                const date = new Date(dateStr);
+                const month = date.getMonth() + 1;
+                const day = date.getDate();
+                const key = `${month < 10 ? '0' + month : month}/${day < 10 ? '0' + day : day}`;
+                return this.specialDays.hasOwnProperty(key);
+            },
+            getSpecialDayLabel(dateStr) {
+                const date = new Date(dateStr);
+                const month = date.getMonth() + 1;
+                const day = date.getDate();
+                const key = `${month < 10 ? '0' + month : month}/${day < 10 ? '0' + day : day}`;
+                return this.specialDays[key] || '';
+            },
+            formatReminderDate(dateString) {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('tr-TR') + ' ' + date.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+            },
+            loadEvents() {
+                const savedEvents = localStorage.getItem('profileEvents');
+                if (savedEvents) {
+                    this.events = JSON.parse(savedEvents);
+                } else {
+                    // Varsayılan etkinlikler
+                    const today = new Date();
+                    const tomorrow = new Date();
+                    tomorrow.setDate(today.getDate() + 1);
+
+                    this.events = [
+                        {
+                            title: "Ekip Toplantısı",
+                            datetime: today.toISOString().split('T')[0] + "T10:00:00",
+                            location: "Toplantı Odası A",
+                            locationType: "meeting"
+                        },
+                        {
+                            title: "Müşteri Görüşmesi",
+                            datetime: today.toISOString().split('T')[0] + "T14:00:00",
+                            location: "Zoom Meeting",
+                            locationType: "zoom"
+                        },
+                        {
+                            title: "Proje Teslimi",
+                            datetime: tomorrow.toISOString().split('T')[0] + "T17:00:00",
+                            location: "Son Teslim Tarihi",
+                            locationType: "deadline"
+                        }
+                    ];
+                    this.saveEvents();
+                }
+            },
+            saveEvents() {
+                localStorage.setItem('profileEvents', JSON.stringify(this.events));
+            },
+            loadReminders() {
+                const savedReminders = localStorage.getItem('profileReminders');
+                if (savedReminders) {
+                    this.reminders = JSON.parse(savedReminders);
+                } else {
+                    // Varsayılan hatırlatıcılar
+                    const today = new Date();
+                    const nextWeek = new Date();
+                    nextWeek.setDate(today.getDate() + 7);
+
+                    this.reminders = [
+                        {
+                            title: "Proje raporunu tamamla",
+                            datetime: today.toISOString().split('T')[0] + "T09:00:00",
+                            priority: "high",
+                            completed: false
+                        },
+                        {
+                            title: "Faturaları öde",
+                            datetime: nextWeek.toISOString().split('T')[0] + "T12:00:00",
+                            priority: "medium",
+                            completed: false
+                        }
+                    ];
+                    this.saveReminders();
+                }
+            },
+            saveReminders() {
+                localStorage.setItem('profileReminders', JSON.stringify(this.reminders));
+            },
+            loadQuickNote() {
+                const savedNote = localStorage.getItem('profileQuickNote');
+                if (savedNote) {
+                    this.quickNote = savedNote;
+                }
+            },
+            saveQuickNote() {
+                localStorage.setItem('profileQuickNote', this.quickNote);
+                this.noteSaved = true;
+                setTimeout(() => {
+                    this.noteSaved = false;
+                }, 2000);
+            },
+            showEventModal() {
+                // Varsayılan tarih olarak şu anki zamanı ayarla
+                const now = new Date();
+                const formattedNow = now.toISOString().slice(0, 16);
+                this.newEvent = {
+                    title: '',
+                    datetime: formattedNow,
+                    location: '',
+                    locationType: 'meeting'
+                };
+                $('#eventModal').modal('show');
+            },
+            saveEvent() {
+                if (!this.newEvent.title || !this.newEvent.datetime) {
+                    alert('Lütfen başlık ve tarih bilgilerini giriniz.');
+                    return;
+                }
+
+                this.events.push({
+                    title: this.newEvent.title,
+                    datetime: this.newEvent.datetime,
+                    location: this.newEvent.location,
+                    locationType: this.newEvent.locationType
+                });
+
+                this.saveEvents();
+                $('#eventModal').modal('hide');
+            },
+            deleteEvent(index) {
+                if (confirm('Bu etkinliği silmek istediğinize emin misiniz?')) {
+                    this.events.splice(index, 1);
+                    this.saveEvents();
+                }
+            },
+            showReminderModal() {
+                // Varsayılan tarih olarak şu anki zamanı ayarla
+                const now = new Date();
+                const formattedNow = now.toISOString().slice(0, 16);
+                this.newReminder = {
+                    title: '',
+                    datetime: formattedNow,
+                    priority: 'medium'
+                };
+                $('#reminderModal').modal('show');
+            },
+            saveReminder() {
+                if (!this.newReminder.title || !this.newReminder.datetime) {
+                    alert('Lütfen başlık ve tarih bilgilerini giriniz.');
+                    return;
+                }
+
+                this.reminders.push({
+                    title: this.newReminder.title,
+                    datetime: this.newReminder.datetime,
+                    priority: this.newReminder.priority,
+                    completed: false
+                });
+
+                this.saveReminders();
+                $('#reminderModal').modal('hide');
+            },
+            deleteReminder(index) {
+                if (confirm('Bu hatırlatıcıyı silmek istediğinize emin misiniz?')) {
+                    this.reminders.splice(index, 1);
+                    this.saveReminders();
+                }
+            },
+            changeAvatar() {
+                alert('Profil fotoğrafı değiştirme işlemi burada gerçekleştirilebilir.');
+                // Gerçek uygulamada bu bir dosya yükleme modali açabilir
+            },
+            editProfile() {
+                alert('Profil düzenleme sayfasına yönlendirilebilir.');
+                // window.location.href = '/profil-duzenle';
+            }
+        },
+        mounted() {
+            this.updateCurrentDate();
+            this.getWeather();
+            this.loadEvents();
+            this.loadReminders();
+            this.loadQuickNote();
+
+            // Her saat başı tarihi güncelle
+            setInterval(this.updateCurrentDate, 3600000);
+
+            // Hava durumunu her 30 dakikada bir güncelle
+            setInterval(this.getWeather, 1800000);
+
+            // Sayfa yüklendiğinde modal eventlerini dinle
+            $('#eventModal').on('shown.bs.modal', () => {
+                this.$nextTick(() => {
+                    const firstInput = document.querySelector('#eventModal input');
+                    if (firstInput) firstInput.focus();
+                });
+            });
+
+            $('#reminderModal').on('shown.bs.modal', () => {
+                this.$nextTick(() => {
+                    const firstInput = document.querySelector('#reminderModal input');
+                    if (firstInput) firstInput.focus();
+                });
+            });
+        }
+    });
+</script>
